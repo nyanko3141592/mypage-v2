@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+  --bg-color: #f3f3f3;
+  --text-color: #000000;
+  --primary-color: #ff5e00;
+  /* Vibrant Orange */
+  --secondary-color: #00e5ff;
+  /* Cyan */
+  --accent-color: #ff00ff;
+  /* Magenta */
+  --yellow: #fdbd10;
+  --green: #2ecc71;
+  --border-width: 4px;
+  --shadow-offset: 6px;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Brutalist Utility Classes */
+.brutal-card {
+  background: white;
+  border: var(--border-width) solid var(--text-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0px 0px var(--text-color);
+  padding: 2rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 2rem;
+}
+
+.brutal-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: calc(var(--shadow-offset) + 3px) calc(var(--shadow-offset) + 3px) 0px 0px var(--text-color);
+}
+
+.brutal-btn {
+  display: inline-block;
+  background: var(--primary-color);
+  color: white;
+  border: var(--border-width) solid var(--text-color);
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  box-shadow: 4px 4px 0px 0px var(--text-color);
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+}
+
+.brutal-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px var(--text-color);
+}
+
+.brutal-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px var(--text-color);
+}
+
+.brutal-tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: var(--yellow);
+  border: 2px solid var(--text-color);
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Specific Section Styles */
+header {
+  border-bottom: var(--border-width) solid var(--text-color);
+  padding: 3rem 0;
+  background: var(--yellow);
+  margin-bottom: 4rem;
+}
+
+.marquee {
+  background: var(--text-color);
+  color: white;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.marquee div {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+footer {
+  margin-top: 4rem;
+  padding: 4rem 0;
+  border-top: var(--border-width) solid var(--text-color);
+  background: var(--text-color);
+  color: white;
+  text-align: center;
+}
+
+/* New Styles for I18n and Icons */
+.lang-switcher {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.profile-img-container {
+  width: 150px;
+  height: 150px;
+  border: var(--border-width) solid var(--text-color);
+  box-shadow: 4px 4px 0px 0px var(--text-color);
+  overflow: hidden;
+  background: white;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-img-container {
+  width: 100%;
+  height: 180px;
+  border: 2px solid var(--text-color);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brutalist-placeholder {
+  background: repeating-linear-gradient(45deg,
+      #ddd,
+      #ddd 10px,
+      #ccc 10px,
+      #ccc 20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-shadow: 1px 1px 0px white;
+}
+
+@media (max-width: 600px) {
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+}
