@@ -5,6 +5,12 @@ import coefontImg from '../assets/projects/coefont.avif'
 import keyspecImg from '../assets/projects/keyspec_generator.jpeg'
 import autoShakerImg from '../assets/projects/auto_shaker.png'
 import opticalFlowImg from '../assets/projects/optical_flow.webp'
+import hiroyukiImg from '../assets/projects/hiroyuki.webp'
+import monakaImg from '../assets/projects/monaka.webp'
+import hhkbImg from '../assets/projects/hhkb.webp'
+import noteTakerImg from '../assets/projects/note-taker.webp'
+import photo2textImg from '../assets/projects/photo2text.webp'
+import menulensImg from '../assets/projects/menulens.webp'
 
 export const allWorksData = [
     {
@@ -54,7 +60,7 @@ export const allWorksData = [
         tags: ["SNS", "AI", "Frontend"],
         descJa: "飲食店等のメニューを撮ると、各料理の写真を自動補完して表示する。SNSで話題に。",
         descEn: "Automatically complements and displays food photos when menu images are captured. Went viral on social media.",
-        image: null,
+        image: menulensImg,
         twitterId: "1917039386258247815"
     },
     {
@@ -84,18 +90,29 @@ export const allWorksData = [
         tags: ["HHKB", "Eng-Layout", "Custom"],
         descJa: "HHKB日本語配列を英語配列感覚で使用するためのカスタムキーキャップ。",
         descEn: "Custom keycaps for using HHKB Japanese layout with an English layout feel.",
-        image: null,
+        image: hhkbImg,
         twitterId: "1897174600175518045"
+    },
+    {
+        id: "monaka-keyboard",
+        title: "Monaka Keyboard",
+        category: "Hardware",
+        tags: ["Keyboards", "Split", "Custom"],
+        descJa: "チョコモナカジャンボサイズのモナカキーボード。2つで分割キーボードとして利用可能。",
+        descEn: "Choco Monaka Jumbo-sized monaka keyboard. Can be used as a split keyboard with two units.",
+        image: monakaImg,
+        twitterId: "1828667479348146179"
     },
     {
         id: "coefont-interpreter",
         title: "CoeFont Interpreter",
         category: "Software",
         tags: ["Voice AI", "Real-time", "Business"],
-        descJa: "リアルタイムでAI音声通訳を行うサービス。開発およびPresidentとして主導。",
-        descEn: "Real-time AI voice translation service. Led development as President.",
+        descJa: "リアルタイムでAI音声通訳を行うサービス。",
+        descEn: "Real-time AI voice translation service.",
         image: coefontImg,
-        twitterId: null
+        twitterId: null,
+        url: "https://www.businessinsider.jp/article/2510-coefont-live-interpretation-start-up/"
     },
     {
         id: "textbook-scan",
@@ -104,8 +121,8 @@ export const allWorksData = [
         tags: ["iOS", "LLM", "Structure"],
         descJa: "撮影した教科書の内容を、LLMが扱いやすい構造化テキストに変換するカメラアプリ。",
         descEn: "Camera app that converts captured textbook content into structured text optimized for LLMs.",
-        image: null,
-        twitterId: null
+        image: photo2textImg,
+        twitterId: "1940724006417846692"
     },
     {
         id: "auto-notetaker",
@@ -114,8 +131,8 @@ export const allWorksData = [
         tags: ["Mathematics", "Digitalization", "OCR"],
         descJa: "数学等の講義で、板書内容を効率的にデジタル化・記録するための自作用ツール。",
         descEn: "A custom tool for efficiently digitalizing and recording lecture notes, especially for mathematics.",
-        image: null,
-        twitterId: "2001091428571865400"
+        image: noteTakerImg,
+        twitterId: "2002267317816996287"
     },
     {
         id: "oshaberi-hiroyuki",
@@ -124,9 +141,9 @@ export const allWorksData = [
         tags: ["CoeFont", "AI", "Viral"],
         descJa: "ひろゆき氏のAI音声で好きな言葉を喋らせることができるジェネレーター。CoeFontの技術を活用。",
         descEn: "A generator that lets you make Hiroyuki's AI voice say anything. Powered by CoeFont technology.",
-        image: null,
+        image: hiroyukiImg,
         twitterId: null,
-        url: "https://hiroyuki.coefont.cloud/hiroyuki"
+        url: "http://coefont.cloud/maker/hiroyuki"
     },
     {
         id: "quick-calendar",
@@ -147,7 +164,7 @@ export const allWorksData = [
         descJa: "デジタル砂時計アプリ。",
         descEn: "Digital hourglass app for iOS.",
         image: null,
-        twitterId: null,
+        twitterId: "1798648437732479397",
         url: "https://apps.apple.com/us/app/digitalhourglass/id6642703958"
     },
     {
@@ -170,6 +187,6 @@ export const allWorksData = [
         descEn: "News and daily life from a personal perspective.",
         image: null,
         twitterId: null,
-        url: "https://aistylist.jp/"
+        url: "https://play.google.com/store/apps/details?id=com.shunsukeshoji.aistyllist_android&hl=ja"
     }
 ]

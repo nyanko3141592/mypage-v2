@@ -21,24 +21,49 @@ function BlogPostPage({ t }) {
     if (loading) return <div className="container" style={{ paddingTop: '5rem', textAlign: 'center' }}><h2>LOADING...</h2></div>
     if (!post) return <div className="container" style={{ paddingTop: '5rem', textAlign: 'center' }}><h2>POST NOT FOUND</h2></div>
 
+    const renderLink = (href) => {
+        // Twitter Embed Detection
+        if (href.match(/^https?:\/\/(twitter|x)\.com\/\w+\/status\/\d+/)) {
+            const id = href.split('/').pop().split('?')[0]
+            return <TwitterEmbed tweetId={id} />
+        }
+        // Link Preview for other URLs
+        return <LinkPreview url={href} />
+    }
+
     const components = {
         a: ({ href, children }) => {
-            // Twitter Embed Detection
-            if (href.match(/^https?:\/\/(twitter|x)\.com\/\w+\/status\/\d+/)) {
-                // Only embed if it seems to be a standalone link (this is hard to detect perfectly in a tag alone,
-                // but checking if children is the url matches the note-like behavior we setup)
-                if (typeof children[0] === 'string' && (children[0] === href || children[0].startsWith('http'))) {
-                    const id = href.split('/').pop().split('?')[0]
-                    return <TwitterEmbed tweetId={id} />
-                }
+            // Check if this is an autolink (URL displayed as-is)
+            const getTextContent = (c) => {
+                if (typeof c === 'string') return c
+                if (Array.isArray(c)) return c.map(getTextContent).join('')
+                return ''
+            }
+            const textContent = getTextContent(children)
+            const isAutoLink = textContent === href || textContent.startsWith('http')
+
+            // Twitter Embed Detection - standalone Twitter URLs become embeds
+            if (href && href.match(/^https?:\/\/(twitter|x)\.com\/\w+\/status\/\d+/) && isAutoLink) {
+                const id = href.split('/').pop().split('?')[0]
+                return <TwitterEmbed tweetId={id} />
             }
 
-            // Link Preview (Only if link text looks like the URL itself)
-            if (typeof children[0] === 'string' && (children[0] === href || children[0].startsWith('http'))) {
+            // Link Preview for other standalone URLs
+            if (isAutoLink && href) {
                 return <LinkPreview url={href} />
             }
 
             return <a href={href} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline', color: 'var(--primary-color)', fontWeight: 'bold' }}>{children}</a>
+        },
+        p: ({ children }) => {
+            // Check if paragraph contains only a URL string
+            if (children && children.length === 1 && typeof children[0] === 'string') {
+                const text = children[0].trim()
+                if (text.match(/^https?:\/\/\S+$/)) {
+                    return renderLink(text)
+                }
+            }
+            return <p>{children}</p>
         },
         img: ({ src, alt }) => (
             <img src={src} alt={alt} style={{ width: '100%', height: 'auto', border: '4px solid black', margin: '2rem 0' }} />

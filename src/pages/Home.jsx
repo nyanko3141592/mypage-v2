@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon } from 'react-icons/fa'
 import { SiWantedly, SiQiita, SiZenn, SiMisskey } from 'react-icons/si'
@@ -9,6 +9,12 @@ import { linksData } from '../data/links'
 import { workExperience, awards } from '../data/profile'
 import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
+
+// Random rotation for card hover effect
+const getRandomRotation = () => {
+    const rotation = (Math.random() - 0.5) * 4 // -2deg to 2deg
+    return { '--card-rotate': `${rotation}deg` }
+}
 
 function HomePage({ lang, t, onWorkClick }) {
     // Blog posts state
@@ -80,26 +86,38 @@ function HomePage({ lang, t, onWorkClick }) {
                             ? "ソフトウェア、ハードウェア、そして数学の境界線で活動しています。CoeFontでのプロダクト開発と並行し、大学では数学の学問に励んでいます。2025年には共著の言語処理研究で若手奨励賞を受賞しました。"
                             : "Working at the intersection of software, hardware, and mathematics. Balancing product development at CoeFont while pursuing mathematical studies at Waseda University. In 2025, co-authored NLP research received a Young Researcher Award."}
                     </p>
-                    <a href="https://note.com/electrical_cat/n/n34039325f3a2" target="_blank" rel="noopener noreferrer" className="brutal-btn">2025 Recap</a>
+                    <Link to="/blog/2025-recap" className="brutal-btn">2025 Recap</Link>
                 </div>
 
                 <section style={{ margin: '4rem 0' }}>
                     <h2>Socials</h2>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
-                        {socialLinks.map(item => (
-                            <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '50px', minHeight: '50px', background: 'white', color: 'black' }} title={item.name}>
-                                {item.iconComponent}
-                            </a>
-                        ))}
+                        {socialLinks.map(item => {
+                            const socialKey = item.name.toLowerCase().replace(/[^a-z]/g, '').replace('xtwitter', 'twitter').replace('misskeyio', 'misskey')
+                            return (
+                                <a
+                                    key={item.name}
+                                    href={item.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="brutal-btn social-icon-btn"
+                                    data-social={socialKey}
+                                    style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '50px', minHeight: '50px', background: 'white', color: 'black' }}
+                                    title={item.name}
+                                >
+                                    {item.iconComponent}
+                                </a>
+                            )
+                        })}
                     </div>
                 </section>
 
                 <section style={{ margin: '4rem 0' }}>
                     <h2>{t.profile}</h2>
                     <div className="grid">
-                        <div className="brutal-card"><h3>{t.whoTitle}</h3><p>{t.whoDesc}</p></div>
-                        <div className="brutal-card"><h3>{t.profTitle}</h3><p>{t.profDesc}</p></div>
-                        <div className="brutal-card"><h3>{t.interestsTitle}</h3><p>{t.interestsDesc}</p></div>
+                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.whoTitle}</h3><p>{t.whoDesc}</p></div>
+                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.profTitle}</h3><p>{t.profDesc}</p></div>
+                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.interestsTitle}</h3><p>{t.interestsDesc}</p></div>
                     </div>
                 </section>
 
@@ -144,7 +162,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     </div>
                     <div className="grid">
                         {featured.map((p, i) => (
-                            <div key={i} className="brutal-card" onClick={() => onWorkClick(p)}>
+                            <div key={i} className="brutal-card" style={getRandomRotation()} onClick={() => onWorkClick(p)}>
                                 <div className="project-img-container"><ProjectImage src={p.image} title={p.title} /></div>
                                 <div>{p.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}</div>
                                 <h3 style={{ marginTop: '1rem' }}>{p.title}</h3>
@@ -160,7 +178,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     {recentPosts.length > 0 ? (
                         <div className="grid">
                             {recentPosts.map(post => (
-                                <Link key={post.slug} to={`/blog/${post.slug}`} className="brutal-card" style={{ textDecoration: 'none', color: 'black' }}>
+                                <Link key={post.slug} to={`/blog/${post.slug}`} className="brutal-card" style={{ textDecoration: 'none', color: 'black', ...getRandomRotation() }}>
                                     <span style={{ fontSize: '0.9rem', fontFamily: 'var(--font-mono)', color: '#666' }}>{new Date(post.date).toLocaleDateString()}</span>
                                     <h3 style={{ margin: '0.5rem 0', fontSize: '1.2rem' }}>{post.title}</h3>
                                     <div style={{ marginTop: '0.5rem' }}>
