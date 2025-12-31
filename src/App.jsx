@@ -9,6 +9,7 @@ import azookeyImg from './assets/projects/azookeyOnMacOS.png'
 import coefontImg from './assets/projects/coefont.avif'
 import keyspecImg from './assets/projects/keyspec_generator.jpeg'
 import autoShakerImg from './assets/projects/auto_shaker.png'
+import opticalFlowImg from './assets/projects/optical_flow.webp'
 
 
 const translations = {
@@ -130,7 +131,7 @@ const allWorksData = [
     tags: ["iOS", "Camera", "Utility"],
     descJa: "iPhoneのカメラを活用し、デバイス自体を光学マウスとして動作させるアプリ。",
     descEn: "An app that turns your iPhone into an optical mouse using its camera.",
-    image: null,
+    image: opticalFlowImg,
     twitterId: "1987771440914161770"
   },
   {
