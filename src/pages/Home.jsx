@@ -177,6 +177,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                         <Link to="/blog" className="brutal-btn">{t.readBlog}</Link>
                         <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.visitNote}</a>
+                        <Link to="/x" className="brutal-btn" style={{ background: 'black', color: 'white' }}>/x (Analytics)</Link>
                     </div>
                 </section>
             </main>
