@@ -1,17 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon } from 'react-icons/fa'
+import { SiWantedly, SiQiita, SiZenn, SiMisskey } from 'react-icons/si'
+import { IoDocumentText } from 'react-icons/io5' // For Note as there isn't a direct SiNote icon always available
 import profileIcon from '../assets/icon.svg'
 import { allWorksData } from '../data/works'
+import { linksData } from '../data/links'
+import { workExperience, awards } from '../data/profile'
+import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
 
 function HomePage({ lang, t, onWorkClick }) {
-    const featured = allWorksData.slice(0, 4)
-    const socials = [
-        { name: "X (Twitter)", url: "https://twitter.com/nya3_neko2", color: "var(--primary-color)" },
-        { name: "GitHub", url: "https://github.com/nyanko3141592", color: "var(--secondary-color)" },
-        { name: "Note", url: "https://note.com/electrical_cat", color: "var(--accent-color)" },
-        { name: "LinkedIn", url: "https://www.linkedin.com/in/naoki-takahashi-143774225/", color: "var(--green)" }
+    // Blog posts state
+    const [recentPosts, setRecentPosts] = useState([])
+
+    useEffect(() => {
+        getPosts().then(posts => {
+            setRecentPosts(posts.slice(0, 3))
+        })
+    }, [])
+
+    // Select featured works manually or top N
+    // Prioritize visual/high-impact ones: azooKey, Zenzai, PaperSwipe, Hiroyuki, CoeFont, KeySpec
+    const featuredIds = ["azookey-macos", "zenzai", "paperswipe", "oshaberi-hiroyuki", "coefont-interpreter", "keyspec-gen"]
+    const featured = allWorksData.filter(w => featuredIds.includes(w.id))
+
+    // Define social links order explicitly
+    const targetSocials = [
+        "X (Twitter)", "GitHub", "LinkedIn", "Wantedly",
+        "Note", "Qiita", "Zenn",
+        "YouTube", "Misskey.io", "Mastodon", "Reddit"
     ]
+
+    // Icon mapping
+    const iconMap = {
+        "X (Twitter)": <FaTwitter size={24} />,
+        "GitHub": <FaGithub size={24} />,
+        "LinkedIn": <FaLinkedin size={24} />,
+        "Wantedly": <SiWantedly size={24} />,
+        "Note": <IoDocumentText size={24} />,
+        "Qiita": <SiQiita size={24} />,
+        "Zenn": <SiZenn size={24} />,
+        "YouTube": <FaYoutube size={24} />,
+        "Misskey.io": <SiMisskey size={24} />,
+        "Mastodon": <FaMastodon size={24} />,
+        "Reddit": <FaReddit size={24} />
+    }
+
+    // Flatten links and sort based on targetSocials
+    const allLinksFlat = linksData.flatMap(c => c.items)
+    const socialLinks = targetSocials.map(name => {
+        const item = allLinksFlat.find(i => i.name === name)
+        return item ? { ...item, iconComponent: iconMap[name] } : null
+    }).filter(Boolean)
 
     return (
         <div>
@@ -41,6 +82,18 @@ function HomePage({ lang, t, onWorkClick }) {
                     </p>
                     <a href="https://note.com/electrical_cat/n/n34039325f3a2" target="_blank" rel="noopener noreferrer" className="brutal-btn">2025 Recap</a>
                 </div>
+
+                <section style={{ margin: '4rem 0' }}>
+                    <h2>Socials</h2>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+                        {socialLinks.map(item => (
+                            <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '50px', minHeight: '50px', background: 'white', color: 'black' }} title={item.name}>
+                                {item.iconComponent}
+                            </a>
+                        ))}
+                    </div>
+                </section>
+
                 <section style={{ margin: '4rem 0' }}>
                     <h2>{t.profile}</h2>
                     <div className="grid">
@@ -49,6 +102,41 @@ function HomePage({ lang, t, onWorkClick }) {
                         <div className="brutal-card"><h3>{t.interestsTitle}</h3><p>{t.interestsDesc}</p></div>
                     </div>
                 </section>
+
+                <section style={{ margin: '4rem 0' }}>
+                    <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+                        <div>
+                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Experience</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {workExperience.map((job, i) => (
+                                    <div key={i} className="brutal-card" style={{ padding: '1.5rem' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{job.company}</h3>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', background: 'var(--yellow)', padding: '0.2rem 0.5rem', border: '2px solid black' }}>{job.period}</span>
+                                        </div>
+                                        <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{job.role}</div>
+                                        <p style={{ margin: 0, fontSize: '0.9rem', color: '#666' }}>{job.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div>
+                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Awards</h2>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {awards.map((award, i) => (
+                                    <div key={i} className="brutal-card" style={{ padding: '1.5rem', borderLeft: '8px solid var(--accent-color)' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{award.title}</h3>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{award.date}</span>
+                                        </div>
+                                        <p style={{ margin: 0, fontSize: '0.9rem' }}>{award.description}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <section style={{ margin: '4rem 0' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
                         <h2 style={{ marginBottom: 0 }}>{t.projectsTitle}</h2>
@@ -66,24 +154,29 @@ function HomePage({ lang, t, onWorkClick }) {
                         ))}
                     </div>
                 </section>
-                <section style={{ margin: '4rem 0' }}>
-                    <h2>{t.connect}</h2>
-                    <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-                        {socials.map((s, i) => (
-                            <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ textAlign: 'center', background: s.color, color: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '150px' }}>
-                                <span style={{ fontSize: '1.5rem', fontWeight: '800' }}>{s.name}</span>
-                            </a>
-                        ))}
-                    </div>
-                </section>
+
                 <section style={{ margin: '4rem 0' }}>
                     <h2>{t.blogTitle}</h2>
-                    <div className="brutal-card">
-                        <p>{t.blogComing}</p>
-                        <div style={{ marginTop: '1rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                            <Link to="/blog" className="brutal-btn">{t.readBlog}</Link>
-                            <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.visitNote}</a>
+                    {recentPosts.length > 0 ? (
+                        <div className="grid">
+                            {recentPosts.map(post => (
+                                <Link key={post.slug} to={`/blog/${post.slug}`} className="brutal-card" style={{ textDecoration: 'none', color: 'black' }}>
+                                    <span style={{ fontSize: '0.9rem', fontFamily: 'var(--font-mono)', color: '#666' }}>{new Date(post.date).toLocaleDateString()}</span>
+                                    <h3 style={{ margin: '0.5rem 0', fontSize: '1.2rem' }}>{post.title}</h3>
+                                    <div style={{ marginTop: '0.5rem' }}>
+                                        {post.tags && post.tags.slice(0, 2).map(tag => (
+                                            <span key={tag} style={{ fontSize: '0.7rem', border: '1px solid black', padding: '0.1rem 0.3rem', marginRight: '0.3rem', borderRadius: '4px' }}>{tag}</span>
+                                        ))}
+                                    </div>
+                                </Link>
+                            ))}
                         </div>
+                    ) : (
+                        <div className="brutal-card"><p>{t.blogComing}</p></div>
+                    )}
+                    <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                        <Link to="/blog" className="brutal-btn">{t.readBlog}</Link>
+                        <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.visitNote}</a>
                     </div>
                 </section>
             </main>

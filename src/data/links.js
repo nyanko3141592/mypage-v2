@@ -3,7 +3,6 @@ export const linksData = [
         category: "Profile",
         items: [
             { name: "X (Twitter)", url: "https://twitter.com/nya3_neko2", icon: "twitter" },
-            { name: "Instagram", url: "https://instagram.com/naoki_t_cat", icon: "instagram" },
             { name: "GitHub", url: "https://github.com/nyanko3141592", icon: "github" },
             { name: "LinkedIn", url: "https://linkedin.com/in/naoki-takahashi-143774225", icon: "linkedin" },
             { name: "Wantedly", url: "https://www.wantedly.com/id/naoki_takahashi_314", icon: "wantedly" },

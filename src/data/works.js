@@ -116,5 +116,60 @@ export const allWorksData = [
         descEn: "A custom tool for efficiently digitalizing and recording lecture notes, especially for mathematics.",
         image: null,
         twitterId: "2001091428571865400"
+    },
+    {
+        id: "oshaberi-hiroyuki",
+        title: "おしゃべりひろゆきメーカー",
+        category: "Software",
+        tags: ["CoeFont", "AI", "Viral"],
+        descJa: "ひろゆき氏のAI音声で好きな言葉を喋らせることができるジェネレーター。CoeFontの技術を活用。",
+        descEn: "A generator that lets you make Hiroyuki's AI voice say anything. Powered by CoeFont technology.",
+        image: null,
+        twitterId: null,
+        url: "https://hiroyuki.coefont.cloud/hiroyuki"
+    },
+    {
+        id: "quick-calendar",
+        title: "QuickCalendar",
+        category: "Software",
+        tags: ["iOS", "Productivity"],
+        descJa: "素早く予定を入力・確認できるiOSカレンダーアプリ。",
+        descEn: "iOS calendar app for quick schedule entry and viewing.",
+        image: null,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/quickcalendar/id6739865507"
+    },
+    {
+        id: "digital-hourglass",
+        title: "DigitalHourglass",
+        category: "Software",
+        tags: ["iOS", "Utility"],
+        descJa: "デジタル砂時計アプリ。",
+        descEn: "Digital hourglass app for iOS.",
+        image: null,
+        twitterId: null,
+        url: "https://apps.apple.com/us/app/digitalhourglass/id6642703958"
+    },
+    {
+        id: "shukatsu-pocket",
+        title: "就活ポケット",
+        category: "Software",
+        tags: ["iOS", "Job Hunting"],
+        descJa: "就職活動のスケジュールやメモを管理するアプリ。",
+        descEn: "App for managing job hunting schedules and notes.",
+        image: null,
+        twitterId: null,
+        url: "https://apps.apple.com/us/app/%E5%B0%B1%E6%B4%BB%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88/id6599845519"
+    },
+    {
+        id: "aistylist",
+        title: "AiStylist",
+        category: "Software",
+        tags: ["AI", "Media"],
+        descJa: "ニュースも日常も、私らしい視点で。",
+        descEn: "News and daily life from a personal perspective.",
+        image: null,
+        twitterId: null,
+        url: "https://aistylist.jp/"
     }
 ]
