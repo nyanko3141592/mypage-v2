@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link, useParams, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import Papa from 'papaparse'
 import profileIcon from './assets/icon.svg'
 import zenzaiImg from './assets/projects/zenzai.png'
@@ -30,7 +30,7 @@ const translations = {
     worksSubtitle: "ソフトウェア、ハードウェア、そして研究の軌跡",
     close: "閉じる",
     tweetsTitle: "ポスト一覧",
-    tweetsSubtitle: "ポストと統計データ (CSVより読み込み)",
+    tweetsSubtitle: "直近のポストと統計データ",
     search: "検索...",
     noTweets: "該当するポストが見つかりませんでした。",
     sort: "並び替え",
@@ -38,7 +38,13 @@ const translations = {
     sortLikes: "いいね数",
     sortImpressions: "インプレッション",
     sortEngagements: "エンゲージメント",
-    loadEmbed: "ポストを表示 (画像/動画)"
+    loadEmbed: "ポストを表示 (画像/動画)",
+    analyticsTitle: "Twitter Analytics",
+    analyticsSubtitle: "年次パフォーマンスとハイライト",
+    exploreYear: "この年のポストを見る →",
+    totalImp: "総インプレッション",
+    mostViral: "最大のバズ",
+    noData: "データがありません"
   },
   en: {
     back: "Back",
@@ -63,7 +69,7 @@ const translations = {
     worksSubtitle: "Software, Hardware, and Research Journey",
     close: "Close",
     tweetsTitle: "Tweets",
-    tweetsSubtitle: "Posts and analytics (Loaded from CSV)",
+    tweetsSubtitle: "Recent posts and analytics",
     search: "Search...",
     noTweets: "No tweets found matching your criteria.",
     sort: "Sort By",
@@ -71,7 +77,13 @@ const translations = {
     sortLikes: "Likes",
     sortImpressions: "Impressions",
     sortEngagements: "Engagements",
-    loadEmbed: "Load Post (Image/Video)"
+    loadEmbed: "Load Post (Image/Video)",
+    analyticsTitle: "Twitter Analytics",
+    analyticsSubtitle: "Yearly Performance & Highlights",
+    exploreYear: "Explore Year →",
+    totalImp: "Total Impressions",
+    mostViral: "Biggest Hit",
+    noData: "No Data"
   }
 }
 
@@ -188,16 +200,47 @@ const allWorksData = [
   }
 ]
 
+// Fetch and parse helper
+const fetchTweets = (year) => {
+  return new Promise((resolve, reject) => {
+    fetch(`/tweets_${year}.csv`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load CSV')
+        return res.text()
+      })
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            const parsed = results.data.map(tw => ({
+              ...tw,
+              dateObj: new Date(tw['Date']),
+              likesCount: parseInt(tw['Likes']?.replace(/,/g, '') || '0', 10),
+              impCount: parseInt(tw['Impressions']?.replace(/,/g, '') || '0', 10),
+              engCount: parseInt(tw['Engagements']?.replace(/,/g, '') || '0', 10),
+              tweetId: tw['Post id'] || tw['Post Link']?.split('/').pop()
+            }))
+            resolve(parsed)
+          },
+          error: (err) => reject(err)
+        })
+      })
+      .catch(err => {
+        console.error(err)
+        resolve([]) // Return empty on error
+      })
+  })
+}
+
 const TwitterEmbed = ({ tweetId }) => {
   useEffect(() => {
-    // Only load the script if it doesn't exist to prevent duplicates
     if (!document.querySelector('script[src="https://platform.twitter.com/widgets.js"]')) {
       const script = document.createElement("script");
       script.setAttribute("src", "https://platform.twitter.com/widgets.js");
       script.setAttribute("async", "true");
       document.head.appendChild(script);
     } else if (window.twttr) {
-      // If script exists, manually trigger widget load
       window.twttr.widgets.load();
     }
   }, [tweetId]);
@@ -368,77 +411,131 @@ function WorksPage({ lang, t, onWorkClick }) {
   )
 }
 
+function AnalyticsHome({ lang, t }) {
+  const [stats, setStats] = useState({
+    2025: { loading: true, totalImp: 0, topTweet: null },
+    2024: { loading: true, totalImp: 0, topTweet: null }
+  })
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // 2025 Data
+    fetchTweets('2025').then(data => {
+      const totalImp = data.reduce((acc, curr) => acc + curr.impCount, 0)
+      const topTweet = data.reduce((max, curr) => curr.impCount > (max?.impCount || 0) ? curr : max, null)
+      setStats(prev => ({ ...prev, 2025: { loading: false, totalImp, topTweet } }))
+    })
+
+    // 2024 Data
+    fetchTweets('2024').then(data => {
+      const totalImp = data.reduce((acc, curr) => acc + curr.impCount, 0)
+      const topTweet = data.reduce((max, curr) => curr.impCount > (max?.impCount || 0) ? curr : max, null)
+      setStats(prev => ({ ...prev, 2024: { loading: false, totalImp, topTweet } }))
+    })
+  }, [])
+
+  const renderYearCard = (year, color) => {
+    const yearStats = stats[year]
+    if (yearStats.loading) {
+      return (
+        <div className="brutal-card" style={{ background: color, minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <h2 style={{ fontSize: '2rem' }}>LOADING...</h2>
+        </div>
+      )
+    }
+
+    // Format numbers like 4.2M, 500K etc.
+    const formatter = Intl.NumberFormat('en', { notation: "compact" })
+
+    return (
+      <div className="brutal-card" style={{ background: color, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <h2 style={{ fontSize: '4rem', marginBottom: '0', lineHeight: '1' }}>{year}</h2>
+
+        <div style={{ background: 'white', padding: '1rem', border: '3px solid black' }}>
+          <div style={{ fontSize: '0.9rem', color: '#666', fontFamily: 'var(--font-mono)' }}>{t.totalImp}</div>
+          <div style={{ fontSize: '2.5rem', fontWeight: '800' }}>{formatter.format(yearStats.totalImp)}</div>
+        </div>
+
+        {yearStats.topTweet && (
+          <div style={{ background: 'white', padding: '1rem', border: '3px solid black', flex: 1 }}>
+            <div style={{ fontSize: '0.9rem', color: '#666', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{t.mostViral} 🚀 {formatter.format(yearStats.topTweet.impCount)}</div>
+            <div className="tweet-text" style={{ fontSize: '0.9rem', maxHeight: '100px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {yearStats.topTweet['Post text']}
+            </div>
+          </div>
+        )}
+
+        <button
+          className="brutal-btn"
+          onClick={() => navigate(`/x/${year}`)}
+          style={{ width: '100%', textAlign: 'center', background: 'black', color: 'white', marginTop: 'auto' }}
+        >
+          {t.exploreYear}
+        </button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="container" style={{ paddingTop: '5rem' }}>
+      <Link to="/" className="brutal-btn" style={{ marginBottom: '2rem' }}>← {t.back}</Link>
+      <h1 style={{ fontSize: '3.5rem' }}>{t.analyticsTitle}</h1>
+      <p style={{ fontSize: '1.2rem', marginBottom: '3rem', fontFamily: 'var(--font-mono)' }}>{t.analyticsSubtitle}</p>
+
+      <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+        {renderYearCard(2025, 'var(--yellow)')}
+        {renderYearCard(2024, 'var(--primary-color)')}
+      </div>
+    </div>
+  )
+}
+
 function TweetsPage({ lang, t }) {
   const { year } = useParams()
   const [tweets, setTweets] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
   const [loading, setLoading] = useState(true)
-  const [sortBy, setSortBy] = useState('Date') // Date, Likes, Impressions, Engagements
+  const [sortBy, setSortBy] = useState('Date')
   const [expandedTweets, setExpandedTweets] = useState({})
 
   useEffect(() => {
-    fetch('/tweets.csv')
-      .then(response => response.text())
-      .then(csvData => {
-        Papa.parse(csvData, {
-          header: true,
-          skipEmptyLines: true,
-          complete: (results) => {
-            const parsedTweets = results.data.map(tw => ({
-              ...tw,
-              // Convert "Sun, Nov 23, 2025" to Date object
-              dateObj: new Date(tw['Date']),
-              likesCount: parseInt(tw['Likes']?.replace(/,/g, '') || '0', 10),
-              impCount: parseInt(tw['Impressions']?.replace(/,/g, '') || '0', 10),
-              engCount: parseInt(tw['Engagements']?.replace(/,/g, '') || '0', 10),
-              tweetId: tw['Post id'] || tw['Post Link']?.split('/').pop()
-            }))
-            setTweets(parsedTweets)
-            setLoading(false)
-          }
-        })
-      })
-  }, [])
+    setLoading(true)
+    fetchTweets(year).then(data => {
+      setTweets(data)
+      setLoading(false)
+    })
+  }, [year])
 
   const filteredTweets = useMemo(() => {
     let result = tweets
 
-    // Filter by year if specified
-    if (year) {
-      result = result.filter(tw => tw.dateObj.getFullYear().toString() === year)
-    }
-
-    // Filter by search term
     if (searchTerm) {
       result = result.filter(tw =>
         tw['Post text']?.toLowerCase().includes(searchTerm.toLowerCase())
       )
     }
 
-    // Sort
     result.sort((a, b) => {
       if (sortBy === 'Likes') return b.likesCount - a.likesCount
       if (sortBy === 'Impressions') return b.impCount - a.impCount
       if (sortBy === 'Engagements') return b.engCount - a.engCount
-      return b.dateObj - a.dateObj // Default: Newest first
+      return b.dateObj - a.dateObj
     })
 
     return result
-  }, [tweets, searchTerm, sortBy, year])
+  }, [tweets, searchTerm, sortBy])
 
   const toggleEmbed = (id, e) => {
     e.stopPropagation()
-    setExpandedTweets(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }))
+    setExpandedTweets(prev => ({ ...prev, [id]: !prev[id] }))
   }
 
   return (
     <div className="container" style={{ paddingTop: '5rem' }}>
-      <Link to="/" className="brutal-btn" style={{ marginBottom: '2rem' }}>← {t.back}</Link>
-      <h1 style={{ fontSize: '3.5rem' }}>{t.tweetsTitle} {year && `(${year})`}</h1>
-      <p style={{ fontSize: '1.2rem', marginBottom: '3rem', fontFamily: 'var(--font-mono)' }}>{t.tweetsSubtitle}</p>
+      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '2rem' }}>
+        <Link to="/x" className="brutal-btn">← {t.back}</Link>
+        <h1 style={{ fontSize: 'min(3rem, 10vw)', margin: 0 }}>Tweets {year}</h1>
+      </div>
 
       <div style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <input
@@ -461,7 +558,7 @@ function TweetsPage({ lang, t }) {
           <option value="Engagements">{t.sortEngagements}</option>
         </select>
         <Link to="/x/2025" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2025' ? 'var(--yellow)' : 'white' }}>2025</Link>
-        <Link to="/x/2024" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2024' ? 'var(--yellow)' : 'white' }}>2024</Link>
+        <Link to="/x/2024" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2024' ? 'var(--primary-color)' : 'white', color: year === '2024' ? 'white' : 'black' }}>2024</Link>
       </div>
 
       {loading ? (
@@ -483,8 +580,6 @@ function TweetsPage({ lang, t }) {
               ) : (
                 <>
                   <div className="tweet-text">{tw['Post text']}</div>
-
-                  {/* Button to load embed if user wants to see images/video */}
                   <button
                     className="brutal-btn"
                     style={{ fontSize: '0.7rem', padding: '0.3rem 0.5rem', marginTop: '0.5rem', width: 'fit-content' }}
@@ -515,10 +610,6 @@ function TweetsPage({ lang, t }) {
   )
 }
 
-function TwitterWrapper() {
-  return <Navigate to="/x/2025" replace />
-}
-
 function App() {
   const [lang, setLang] = useState('ja')
   const [selectedWork, setSelectedWork] = useState(null)
@@ -530,7 +621,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
         <Route path="/works" element={<WorksPage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
-        <Route path="/x" element={<TwitterWrapper />} />
+        <Route path="/x" element={<AnalyticsHome lang={lang} t={t} />} />
         <Route path="/x/:year" element={<TweetsPage lang={lang} t={t} />} />
       </Routes>
       <ProjectModal work={selectedWork} lang={lang} t={t} onClose={() => setSelectedWork(null)} />
@@ -538,7 +629,7 @@ function App() {
         <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
           <p style={{ fontFamily: 'var(--font-mono)', margin: 0 }}>{t.stayBrutal}</p>
           <div style={{ display: 'flex', gap: '1rem' }}>
-            <Link to="/x/2025" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/x (Tweets)</Link>
+            <Link to="/x" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/x (Tweets)</Link>
             <Link to="/works" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/works</Link>
           </div>
         </div>
