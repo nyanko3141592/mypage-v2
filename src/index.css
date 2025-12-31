@@ -267,6 +267,50 @@ footer {
   min-height: 250px;
 }
 
+.tweet-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: white;
+  min-height: 150px;
+}
+
+.tweet-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.tweet-text {
+  font-size: 1rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.tweet-stats {
+  display: flex;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-top: auto;
+  border-top: 2px solid black;
+  padding-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.brutal-card {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
 @media (max-width: 600px) {
   .profile-section {
     flex-direction: column;

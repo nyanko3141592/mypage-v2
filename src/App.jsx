@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Papa from 'papaparse'
 import profileIcon from './assets/icon.svg'
 import zenzaiImg from './assets/projects/zenzai.png'
 import paperswipeImg from './assets/projects/paperswipe.webp'
@@ -27,7 +28,11 @@ const translations = {
     stayBrutal: "© 2025 NAOKI TAKAHASHI. STAY BRUTAL.",
     worksTitle: "作品一覧",
     worksSubtitle: "ソフトウェア、ハードウェア、そして研究の軌跡",
-    close: "閉じる"
+    close: "閉じる",
+    tweetsTitle: "ポスト一覧",
+    tweetsSubtitle: "直近のポストと統計データ (CSVより読み込み)",
+    search: "検索...",
+    noTweets: "該当するポストが見つかりませんでした。"
   },
   en: {
     back: "Back",
@@ -50,7 +55,11 @@ const translations = {
     stayBrutal: "© 2025 NAOKI TAKAHASHI. STAY BRUTAL.",
     worksTitle: "Works",
     worksSubtitle: "Software, Hardware, and Research Journey",
-    close: "Close"
+    close: "Close",
+    tweetsTitle: "Tweets",
+    tweetsSubtitle: "Recent posts and analytics (Loaded from CSV)",
+    search: "Search...",
+    noTweets: "No tweets found matching your criteria."
   }
 }
 
@@ -114,46 +123,6 @@ const allWorksData = [
     descEn: "A website for generating and beautifully displaying custom keyboard specifications.",
     image: null,
     twitterId: "1994649692265976259"
-  },
-  {
-    id: "auto-shaker",
-    title: "Auto Shaker",
-    category: "Hardware",
-    tags: ["Protocols", "Electronics"],
-    descJa: "プロテイン等を自動で混ぜる、実用的な自作ハードウェア。",
-    descEn: "A practical custom hardware device for automatically shaking protein and other beverages.",
-    image: null,
-    twitterId: null
-  },
-  {
-    id: "hhkb-keycaps",
-    title: "HHKB Custom Keycaps",
-    category: "Hardware",
-    tags: ["HHKB", "Eng-Layout", "Custom"],
-    descJa: "HHKB日本語配列を英語配列感覚で使用するためのカスタムキーキャップ。",
-    descEn: "Custom keycaps for using HHKB Japanese layout with an English layout feel.",
-    image: null,
-    twitterId: "1897174600175518045"
-  },
-  {
-    id: "coefont-interpreter",
-    title: "CoeFont Interpreter",
-    category: "Software",
-    tags: ["Voice AI", "Real-time", "Business"],
-    descJa: "リアルタイムでAI音声通訳を行うサービス。開発およびPresidentとして主導。",
-    descEn: "Real-time AI voice translation service. Led development as President.",
-    image: "https://assets.st-note.com/img/1767060845-ka4ImKExWUuFHqsjTGb3YvS2.png?width=1200",
-    twitterId: null
-  },
-  {
-    id: "textbook-scan",
-    title: "Textbook Scanner",
-    category: "Software",
-    tags: ["iOS", "LLM", "Structure"],
-    descJa: "撮影した教科書の内容を、LLMが扱いやすい構造化テキストに変換するカメラアプリ。",
-    descEn: "Camera app that converts captured textbook content into structured text optimized for LLMs.",
-    image: null,
-    twitterId: null
   },
   {
     id: "auto-notetaker",
@@ -341,6 +310,79 @@ function WorksPage({ lang, t, onWorkClick }) {
   )
 }
 
+function TweetsPage({ lang, t }) {
+  const [tweets, setTweets] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetch('/tweets.csv')
+      .then(response => response.text())
+      .then(csvData => {
+        Papa.parse(csvData, {
+          header: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            setTweets(results.data)
+            setLoading(false)
+          }
+        })
+      })
+  }, [])
+
+  const filteredTweets = useMemo(() => {
+    return tweets.filter(tw =>
+      tw['Post text']?.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }, [tweets, searchTerm])
+
+  return (
+    <div className="container" style={{ paddingTop: '5rem' }}>
+      <Link to="/" className="brutal-btn" style={{ marginBottom: '2rem' }}>← {t.back}</Link>
+      <h1 style={{ fontSize: '3.5rem' }}>{t.tweetsTitle}</h1>
+      <p style={{ fontSize: '1.2rem', marginBottom: '3rem', fontFamily: 'var(--font-mono)' }}>{t.tweetsSubtitle}</p>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <input
+          type="text"
+          placeholder={t.search}
+          className="brutal-card"
+          style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', border: '4px solid black' }}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '5rem' }}>
+          <h2 style={{ fontFamily: 'var(--font-mono)' }}>LOADING TWEETS...</h2>
+        </div>
+      ) : (
+        <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
+          {filteredTweets.map((tw, i) => (
+            <div key={i} className="brutal-card tweet-card" onClick={() => window.open(tw['Post Link'], '_blank')}>
+              <div className="tweet-date">{tw['Date']}</div>
+              <div className="tweet-text">{tw['Post text']}</div>
+              <div className="tweet-stats">
+                <div className="stat-item"><span>🚀</span> {tw['Impressions'] || 0}</div>
+                <div className="stat-item"><span>❤️</span> {tw['Likes'] || 0}</div>
+                <div className="stat-item"><span>📑</span> {tw['Bookmarks'] || 0}</div>
+                <div className="stat-item"><span>🔄</span> {tw['Reposts'] || 0}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {!loading && filteredTweets.length === 0 && (
+        <div style={{ textAlign: 'center', padding: '5rem' }}>
+          <p>{t.noTweets}</p>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function App() {
   const [lang, setLang] = useState('ja')
   const [selectedWork, setSelectedWork] = useState(null)
@@ -352,11 +394,16 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
         <Route path="/works" element={<WorksPage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
+        <Route path="/x" element={<TweetsPage lang={lang} t={t} />} />
       </Routes>
       <ProjectModal work={selectedWork} lang={lang} t={t} onClose={() => setSelectedWork(null)} />
       <footer style={{ marginTop: '4rem' }}>
-        <div className="container">
-          <p style={{ fontFamily: 'var(--font-mono)' }}>{t.stayBrutal}</p>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', margin: 0 }}>{t.stayBrutal}</p>
+          <div style={{ display: 'flex', gap: '1rem' }}>
+            <Link to="/x" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/x (Tweets)</Link>
+            <Link to="/works" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/works</Link>
+          </div>
         </div>
       </footer>
     </Router>
