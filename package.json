@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/runtime": "^7.28.4",
+    "@microlink/react": "^5.5.23",
     "front-matter": "^4.0.2",
     "papaparse": "^5.5.3",
     "react": "^19.2.0",

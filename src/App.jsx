@@ -8,6 +8,7 @@ import AnalyticsHome from './pages/Analytics'
 import TweetsPage from './pages/Tweets'
 import BlogPage from './pages/Blog'
 import BlogPostPage from './pages/BlogPost'
+import LinksPage from './pages/Links'
 import { translations } from './data/translations'
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/x/:year" element={<TweetsPage lang={lang} t={t} />} />
         <Route path="/blog" element={<BlogPage t={t} />} />
         <Route path="/blog/:slug" element={<BlogPostPage t={t} />} />
+        <Route path="/links" element={<LinksPage t={t} />} />
       </Routes>
       <ProjectModal work={selectedWork} lang={lang} t={t} onClose={() => setSelectedWork(null)} />
       <footer style={{ marginTop: '4rem' }}>
@@ -34,6 +36,7 @@ function App() {
             <Link to="/x" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/x</Link>
             <Link to="/works" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/works</Link>
             <Link to="/blog" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/blog</Link>
+            <Link to="/links" style={{ textDecoration: 'underline', color: 'black', fontWeight: '800' }}>/links</Link>
           </div>
         </div>
       </footer>
