@@ -2,9 +2,14 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import Papa from 'papaparse'
 import profileIcon from './assets/icon.svg'
+// Project Images
 import zenzaiImg from './assets/projects/zenzai.png'
 import paperswipeImg from './assets/projects/paperswipe.webp'
-import hourglassImg from './assets/projects/hourglass.jpeg'
+import azookeyImg from './assets/projects/azookeyOnMacOS.png'
+import coefontImg from './assets/projects/coefont.avif'
+import keyspecImg from './assets/projects/keyspec_generator.jpeg'
+import autoShakerImg from './assets/projects/auto_shaker.png'
+
 
 const translations = {
   ja: {
@@ -95,7 +100,7 @@ const allWorksData = [
     tags: ["MITOH IT 2024", "IME", "Personalization"],
     descJa: "未踏IT人材育成事業の成果。macOS向けの個人最適化されたIMEで、賢い変換エンジンや「いい感じ変換」を搭載。",
     descEn: "Result of MITOH IT program. Personalized IME for macOS featuring a smart conversion engine and 'Good Feel' conversion.",
-    image: "https://assets.st-note.com/img/1767062871-krgH94TYvLqxzjoSE1eif7Bw.png?width=1200",
+    image: azookeyImg,
     twitterId: "1891025933802361228"
   },
   {
@@ -145,7 +150,7 @@ const allWorksData = [
     tags: ["Keyboards", "Generator", "React"],
     descJa: "自作キーボードのスペックを綺麗に表示・生成できるウェブサイト。",
     descEn: "A website for generating and beautifully displaying custom keyboard specifications.",
-    image: null,
+    image: keyspecImg,
     twitterId: "1994649692265976259"
   },
   {
@@ -155,7 +160,7 @@ const allWorksData = [
     tags: ["Protocols", "Electronics"],
     descJa: "プロテイン等を自動で混ぜる、実用的な自作ハードウェア。",
     descEn: "A practical custom hardware device for automatically shaking protein and other beverages.",
-    image: null,
+    image: autoShakerImg,
     twitterId: null
   },
   {
@@ -175,7 +180,7 @@ const allWorksData = [
     tags: ["Voice AI", "Real-time", "Business"],
     descJa: "リアルタイムでAI音声通訳を行うサービス。開発およびPresidentとして主導。",
     descEn: "Real-time AI voice translation service. Led development as President.",
-    image: "https://assets.st-note.com/img/1767060845-ka4ImKExWUuFHqsjTGb3YvS2.png?width=1200",
+    image: coefontImg,
     twitterId: null
   },
   {
