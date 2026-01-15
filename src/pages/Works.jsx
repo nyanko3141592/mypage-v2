@@ -20,7 +20,7 @@ function WorksPage({ lang, t, onWorkClick }) {
             <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
                 {filteredWorks.map((work) => (
                     <div key={work.id} className="brutal-card" onClick={() => onWorkClick(work)}>
-                        <div className="project-img-container"><ProjectImage src={work.image} title={work.title} /></div>
+                        <div className="project-img-container"><ProjectImage src={work.image} title={work.title} githubUrl={work.githubUrl} /></div>
                         <div>
                             <span className="brutal-tag" style={{ background: 'black', color: 'white' }}>{work.category}</span>
                             {work.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}

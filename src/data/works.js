@@ -43,6 +43,7 @@ export const allWorksData = [
         image: paperswipeImg,
         twitterId: "1937473208443371919"
     },
+
     {
         id: "iphone-mouse",
         title: "iPhone Optical Mouse",
@@ -63,6 +64,7 @@ export const allWorksData = [
         image: menulensImg,
         twitterId: "1917039386258247815"
     },
+
     {
         id: "keyspec-gen",
         title: "KeySpec Generator",
@@ -72,6 +74,18 @@ export const allWorksData = [
         descEn: "A website for generating and beautifully displaying custom keyboard specifications.",
         image: keyspecImg,
         twitterId: "1994649692265976259"
+    },
+    {
+        id: "filetree",
+        title: "filetree",
+        category: "Software",
+        tags: ["TUI", "Rust", "Vim"],
+        descJa: "Vimキーバインドを持つ高速で軽量なファイルエクスプローラーTUI。",
+        descEn: "A fast, lightweight file explorer TUI with Vim keybindings.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/filetree"
     },
     {
         id: "auto-shaker",
@@ -125,6 +139,54 @@ export const allWorksData = [
         twitterId: "1940724006417846692"
     },
     {
+        id: "noise-detector-web",
+        title: "Noise Detector Web",
+        category: "Software",
+        tags: ["Web", "AI", "Image Processing"],
+        descJa: "画像の隠れたノイズやアーティファクトを検出・可視化するWebツール。",
+        descEn: "Web tool for detecting and visualizing hidden noise and artifacts in images.",
+        image: null,
+        twitterId: null,
+        url: "https://noise-detector.pages.dev",
+        githubUrl: "https://github.com/nyanko3141592/noise-detector-web"
+    },
+    {
+        id: "x-vertical-picture",
+        title: "XVerticalPicture",
+        category: "Software",
+        tags: ["Web", "Social Media", "Image Processing"],
+        descJa: "X(Twitter)で縦長画像を4枚投稿するための画像分割ツール。",
+        descEn: "Image splitting tool for posting vertical images in 4 parts on X(Twitter).",
+        image: null,
+        twitterId: null,
+        url: "https://x-vertical-picture.pages.dev",
+        githubUrl: "https://github.com/nyanko3141592/XVerticalPicture"
+    },
+    {
+        id: "ccperm",
+        title: "CCPerm",
+        category: "Software",
+        tags: ["TUI", "Rust", "Developer Tools"],
+        descJa: "Claude Codeの権限設定を管理するTUIビューアー/エディター。",
+        descEn: "TUI viewer/editor for Claude Code permission settings.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/ccperm"
+    },
+    {
+        id: "obsidian-tui",
+        title: "ObsidianTUI",
+        category: "Software",
+        tags: ["TUI", "Go", "Note-taking"],
+        descJa: "Obsidian vault用TUIクライアント。グラフビュー、タグ、バックリンク等をサポート。",
+        descEn: "TUI client for Obsidian vaults. Supports graph view, tags, backlinks, and more.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/ObsidianTUI"
+    },
+    {
         id: "auto-notetaker",
         title: "Auto Note-taker",
         category: "Software",
@@ -154,7 +216,20 @@ export const allWorksData = [
         descEn: "iOS calendar app for quick schedule entry and viewing.",
         image: null,
         twitterId: null,
-        url: "https://apps.apple.com/jp/app/quickcalendar/id6739865507"
+        url: "https://apps.apple.com/jp/app/quickcalendar/id6739865507",
+        githubUrl: "https://github.com/nyanko3141592/QuickCalendar"
+    },
+    {
+        id: "easy-screen-record",
+        title: "EasyScreenRecord",
+        category: "Software",
+        tags: ["macOS", "Screen Recording", "Utility"],
+        descJa: "スマートズーム機能を備えたmacOS画面録画アプリ。",
+        descEn: "macOS screen recording app with Smart Zoom feature.",
+        image: null,
+        twitterId: null,
+        url: "https://nyanko3141592.github.io/EasyScreenRecord",
+        githubUrl: "https://github.com/nyanko3141592/EasyScreenRecord"
     },
     {
         id: "digital-hourglass",
@@ -165,7 +240,8 @@ export const allWorksData = [
         descEn: "Digital hourglass app for iOS.",
         image: null,
         twitterId: "1798648437732479397",
-        url: "https://apps.apple.com/us/app/digitalhourglass/id6642703958"
+        url: "https://apps.apple.com/us/app/digitalhourglass/id6642703958",
+        githubUrl: "https://github.com/nyanko3141592/DigitalHourglass"
     },
     {
         id: "shukatsu-pocket",
