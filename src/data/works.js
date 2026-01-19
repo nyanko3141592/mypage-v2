@@ -264,5 +264,41 @@ export const allWorksData = [
         image: null,
         twitterId: null,
         url: "https://play.google.com/store/apps/details?id=com.shunsukeshoji.aistyllist_android&hl=ja"
+    },
+    {
+        id: "tmuxcc",
+        title: "tmuxcc",
+        category: "Software",
+        tags: ["TUI", "Rust", "Developer Tools"],
+        descJa: "Claude Code、OpenCode、Codex CLI、Gemini CLI等のAIコーディングエージェントをtmuxで管理するTUIダッシュボード。",
+        descEn: "TUI dashboard for managing AI coding agents (Claude Code, OpenCode, Codex CLI, Gemini CLI) in tmux.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/tmuxcc"
+    },
+    {
+        id: "subagent-viewer",
+        title: "Subagent Viewer",
+        category: "Software",
+        tags: ["TUI", "Rust", "Developer Tools"],
+        descJa: "Claude Codeのサブエージェントの動作をリアルタイムで監視するTUIツール。",
+        descEn: "TUI tool for monitoring Claude Code's subagent activity in real-time.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/subagent-viewer"
+    },
+    {
+        id: "command-en-ja",
+        title: "Command En-Ja",
+        category: "Software",
+        tags: ["macOS", "Utility", "Rust"],
+        descJa: "Commandキーで入力ソースを切り替える軽量なmacOSアプリ。",
+        descEn: "Lightweight macOS app to switch input sources with Command keys.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/command-en-ja"
     }
 ]
