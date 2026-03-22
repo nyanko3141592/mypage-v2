@@ -266,6 +266,78 @@ export const allWorksData = [
         url: "https://play.google.com/store/apps/details?id=com.shunsukeshoji.aistyllist_android&hl=ja"
     },
     {
+        id: "mindaha",
+        title: "MinDaha",
+        category: "Software",
+        tags: ["macOS", "Menu Bar", "Utility"],
+        descJa: "Macのスリープを防止する軽量なmacOSメニューバーアプリ。",
+        descEn: "A lightweight macOS menu bar app that keeps your Mac awake.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/MinDaha"
+    },
+    {
+        id: "clipnest",
+        title: "ClipNest",
+        category: "Software",
+        tags: ["macOS", "Menu Bar", "Clipboard"],
+        descJa: "スニペット機能付きの軽量なmacOSメニューバークリップボードマネージャー。",
+        descEn: "A lightweight macOS menu bar clipboard manager with snippet support.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/ClipNest"
+    },
+    {
+        id: "pawshot",
+        title: "Pawshot",
+        category: "Software",
+        tags: ["macOS", "Screenshot", "Utility"],
+        descJa: "軽量でオープンソースなmacOSスクリーンショットツール。",
+        descEn: "A lightweight, open-source screenshot tool for macOS.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/Pawshot"
+    },
+    {
+        id: "shelfish",
+        title: "shelfish",
+        category: "Software",
+        tags: ["macOS", "Utility", "Drag & Drop"],
+        descJa: "ドラッグ＆ドロップでファイルを一時的に保持できる軽量なmacOSファイルシェルフ。",
+        descEn: "A lightweight, open-source file shelf for macOS. Temporarily hold files via drag and drop.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/shelfish"
+    },
+    {
+        id: "anonymousx",
+        title: "anonymousX",
+        category: "Software",
+        tags: ["Chrome Extension", "Privacy", "SNS"],
+        descJa: "X(Twitter)のアイコン・名前・IDを非表示にしてバイアスを排除するChrome拡張機能。",
+        descEn: "Chrome extension to hide X (Twitter) icons/names/IDs to remove bias.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/anonymousX"
+    },
+    {
+        id: "screenseal",
+        title: "ScreenSeal",
+        category: "Software",
+        tags: ["macOS", "Menu Bar", "Privacy"],
+        descJa: "画面収録中に機密情報をモザイクで隠すmacOSメニューバーアプリ。",
+        descEn: "macOS menu bar app that overlays mosaic effects to hide sensitive info during screen recording.",
+        image: null,
+        twitterId: null,
+        url: null,
+        githubUrl: "https://github.com/nyanko3141592/ScreenSeal"
+    },
+    {
         id: "tmuxcc",
         title: "tmuxcc",
         category: "Software",
