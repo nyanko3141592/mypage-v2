@@ -63,7 +63,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     <img src={profileIcon} alt="Profile" className="profile-img" />
                 </div>
                 <h1 className="profile-name">Naoki Takahashi</h1>
-                <p className="profile-handle">{nickname(t.handle)} · @nya3neko2</p>
+                <p className="profile-handle">{nickname(t.handle)} · @nya3_neko2</p>
                 <p className="profile-headline">{t.heroTitle}</p>
                 <p className="profile-bio">{t.heroBody}</p>
                 <div className="profile-actions">
