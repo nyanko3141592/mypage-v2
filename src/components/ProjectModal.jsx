@@ -1,53 +1,50 @@
-import React from 'react';
-import TwitterEmbed from './TwitterEmbed';
+import TwitterEmbed from './TwitterEmbed'
 
 const ProjectModal = ({ work, lang, t, onClose }) => {
-    if (!work) return null;
+    if (!work) return null
 
     const getGitHubOGP = () => {
-        if (!work.githubUrl || !work.githubUrl.startsWith('https://github.com/')) return null;
-        const match = work.githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
-        if (!match) return null;
-        return `https://opengraph.githubassets.com/${match[1]}/${match[2]}`;
-    };
+        if (!work.githubUrl || !work.githubUrl.startsWith('https://github.com/')) return null
+        const match = work.githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/)
+        if (!match) return null
+        return `https://opengraph.githubassets.com/${match[1]}/${match[2]}`
+    }
 
-    const ogpImage = !work.image && getGitHubOGP();
+    const ogpImage = !work.image && getGitHubOGP()
 
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <button className="modal-close" onClick={onClose}>{t.close} [X]</button>
-                <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{work.title}</h2>
-                <div style={{ marginBottom: '1.5rem' }}>
-                    <span className="brutal-tag" style={{ background: 'black', color: 'white' }}>{work.category}</span>
+                <button type="button" className="modal-close" onClick={onClose}>{t.close}</button>
+                <h2 className="row-title" style={{ fontSize: '1.5rem', paddingRight: 48 }}>{work.title}</h2>
+                <div style={{ margin: '12px 0 16px' }}>
+                    <span className="brutal-tag">{work.category}</span>
                     {work.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}
                 </div>
-                <p style={{ fontSize: '1.2rem', lineHeight: '1.6', marginBottom: '2rem' }}>
+                <p className="row-body" style={{ marginBottom: 24 }}>
                     {lang === 'ja' ? work.descJa : work.descEn}
                 </p>
                 {(work.url || work.githubUrl) && (
-                    <div style={{ marginBottom: '2rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    <div style={{ marginBottom: 24, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                         {work.url && (
-                            <a href={work.url} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-                                <span>🌐</span>
-                                <span>{work.url.startsWith('https://github.com/') ? 'GitHub' : 'Website'}</span>
+                            <a href={work.url} target="_blank" rel="noopener noreferrer" className="brutal-btn">
+                                {work.url.startsWith('https://github.com/') ? 'GitHub' : 'Website'}
                             </a>
                         )}
                         {work.githubUrl && (
-                            <a href={work.githubUrl} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-                                <span>🔗</span>
-                                <span>GitHub</span>
+                            <a href={work.githubUrl} target="_blank" rel="noopener noreferrer" className="brutal-btn btn-secondary">
+                                GitHub
                             </a>
                         )}
                     </div>
                 )}
                 {work.twitterId && <TwitterEmbed tweetId={work.twitterId} />}
                 {!work.twitterId && (work.image || ogpImage) && (
-                    <img src={work.image || ogpImage} alt={work.title} style={{ width: '100%', border: '4px solid black', marginTop: '1rem' }} />
+                    <img src={work.image || ogpImage} alt={work.title} />
                 )}
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default ProjectModal;
+export default ProjectModal

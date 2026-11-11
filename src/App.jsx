@@ -18,28 +18,30 @@ function App() {
 
   return (
     <Router>
-      <Nav lang={lang} setLang={setLang} />
-      <Routes>
-        <Route path="/" element={<HomePage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
-        <Route path="/works" element={<WorksPage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
-        <Route path="/x" element={<AnalyticsHome lang={lang} t={t} />} />
-        <Route path="/x/:year" element={<TweetsPage lang={lang} t={t} />} />
-        <Route path="/media" element={<MediaPage lang={lang} t={t} />} />
-        <Route path="/blog" element={<BlogPage t={t} />} />
-        <Route path="/blog/:slug" element={<BlogPostPage t={t} />} />
-      </Routes>
-      <ProjectModal work={selectedWork} lang={lang} t={t} onClose={() => setSelectedWork(null)} />
-      <footer style={{ marginTop: '4rem' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <p style={{ fontFamily: 'var(--font-mono)', margin: 0 }}>{t.stayBrutal}</p>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <Link to="/works" className="footer-link">/works</Link>
-            <Link to="/media" className="footer-link">/media</Link>
-            <Link to="/blog" className="footer-link">/blog</Link>
-            <Link to="/x" className="footer-link">/x</Link>
-          </div>
+      <div className="app-shell">
+        <Nav lang={lang} setLang={setLang} />
+        <div className="timeline">
+          <Routes>
+            <Route path="/" element={<HomePage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
+            <Route path="/works" element={<WorksPage lang={lang} t={t} onWorkClick={setSelectedWork} />} />
+            <Route path="/x" element={<AnalyticsHome lang={lang} t={t} />} />
+            <Route path="/x/:year" element={<TweetsPage lang={lang} t={t} />} />
+            <Route path="/media" element={<MediaPage lang={lang} t={t} />} />
+            <Route path="/blog" element={<BlogPage t={t} />} />
+            <Route path="/blog/:slug" element={<BlogPostPage t={t} />} />
+          </Routes>
+          <footer className="site-footer">
+            <p className="footer-copy">{t.stayBrutal}</p>
+            <div className="footer-links">
+              <Link to="/works">/works</Link>
+              <Link to="/media">/media</Link>
+              <Link to="/blog">/blog</Link>
+              <Link to="/x">/x</Link>
+            </div>
+          </footer>
         </div>
-      </footer>
+      </div>
+      <ProjectModal work={selectedWork} lang={lang} t={t} onClose={() => setSelectedWork(null)} />
     </Router>
   )
 }
