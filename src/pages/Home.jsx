@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon } from 'react-icons/fa'
-import { SiWantedly, SiQiita, SiZenn, SiMisskey } from 'react-icons/si'
+import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon, FaGlasses } from 'react-icons/fa'
+import { SiWantedly, SiQiita, SiZenn, SiMisskey, SiSubstack } from 'react-icons/si'
 import { IoDocumentText } from 'react-icons/io5' // For Note as there isn't a direct SiNote icon always available
 import profileIcon from '../assets/icon.svg'
 import { allWorksData } from '../data/works'
 import { linksData } from '../data/links'
 import { workExperience, awards } from '../data/profile'
+import { mediaItems } from '../data/media'
 import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
 
@@ -28,13 +29,13 @@ function HomePage({ lang, t, onWorkClick }) {
 
     // Select featured works manually or top N
     // Prioritize visual/high-impact ones: azooKey, Zenzai, PaperSwipe, Hiroyuki, CoeFont, KeySpec
-    const featuredIds = ["azookey-macos", "zenzai", "paperswipe", "oshaberi-hiroyuki", "coefont-interpreter", "keyspec-gen"]
+    const featuredIds = ["inspiration-cat", "azookey-macos", "paperswipe", "zenzai", "smartglasses", "coefont-interpreter"]
     const featured = allWorksData.filter(w => featuredIds.includes(w.id))
 
     // Define social links order explicitly
     const targetSocials = [
         "X (Twitter)", "GitHub", "LinkedIn", "Wantedly",
-        "Note", "Qiita", "Zenn",
+        "Note", "Substack", "SmartGlasses", "Qiita", "Zenn",
         "YouTube", "Misskey.io", "Mastodon", "Reddit"
     ]
 
@@ -45,6 +46,8 @@ function HomePage({ lang, t, onWorkClick }) {
         "LinkedIn": <FaLinkedin size={24} />,
         "Wantedly": <SiWantedly size={24} />,
         "Note": <IoDocumentText size={24} />,
+        "Substack": <SiSubstack size={24} />,
+        "SmartGlasses": <FaGlasses size={24} />,
         "Qiita": <SiQiita size={24} />,
         "Zenn": <SiZenn size={24} />,
         "YouTube": <FaYoutube size={24} />,
@@ -75,19 +78,40 @@ function HomePage({ lang, t, onWorkClick }) {
                         <p style={{ fontSize: '1.5rem', fontWeight: '700', fontFamily: 'var(--font-mono)' }}>
                             {t.handle}
                         </p>
+                        <nav className="site-nav" aria-label="pages">
+                            <Link to="/works" className="brutal-btn nav-link">{t.navWorks}</Link>
+                            <Link to="/media" className="brutal-btn nav-link">{t.navMedia}</Link>
+                            <Link to="/blog" className="brutal-btn nav-link">{t.navBlog}</Link>
+                            <Link to="/x" className="brutal-btn nav-link">/x</Link>
+                        </nav>
                     </div>
                 </div>
             </header>
             <main className="container">
                 <div className="brutal-card" style={{ background: '#2ecc71', color: 'black' }}>
-                    <h2>Engineering & Mathematics</h2>
-                    <p style={{ fontSize: '1.2rem', marginBottom: '1.5rem' }}>
-                        {lang === 'ja'
-                            ? "ソフトウェア、ハードウェア、そして数学の境界線で活動しています。CoeFontでのプロダクト開発と並行し、大学では数学の学問に励んでいます。2025年には共著の言語処理研究で若手奨励賞を受賞しました。"
-                            : "Working at the intersection of software, hardware, and mathematics. Balancing product development at CoeFont while pursuing mathematical studies at Waseda University. In 2025, co-authored NLP research received a Young Researcher Award."}
-                    </p>
-                    <Link to="/blog/2025-recap" className="brutal-btn">2025 Recap</Link>
+                    <h2>{t.heroTitle}</h2>
+                    <p style={{ fontSize: '1.2rem', marginBottom: '1.5rem' }}>{t.heroBody}</p>
+                    <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+                        <Link to="/media" className="brutal-btn">{t.navMedia}</Link>
+                        <Link to="/blog/2025-recap" className="brutal-btn" style={{ background: 'white', color: 'black' }}>2025 Recap</Link>
+                    </div>
                 </div>
+
+                <section style={{ margin: '2.5rem 0 0' }}>
+                    <h2>{t.nowTitle}</h2>
+                    <div className="grid">
+                        <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'var(--secondary-color)', color: 'black', textDecoration: 'none' }}>
+                            <h3>{t.glassesTitle}</h3>
+                            <p>{t.glassesBody}</p>
+                            <span className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.glassesCta}</span>
+                        </a>
+                        <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'var(--yellow)', color: 'black', textDecoration: 'none' }}>
+                            <h3>{t.newsletterTitle}</h3>
+                            <p>{t.newsletterBody}</p>
+                            <span className="brutal-btn" style={{ background: 'black', color: 'white' }}>{t.newsletterCta}</span>
+                        </a>
+                    </div>
+                </section>
 
                 <section style={{ margin: '4rem 0' }}>
                     <h2>Socials</h2>
@@ -124,30 +148,40 @@ function HomePage({ lang, t, onWorkClick }) {
                 <section style={{ margin: '4rem 0' }}>
                     <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                         <div>
-                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Experience</h2>
+                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.experienceTitle}</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                 {workExperience.map((job, i) => (
                                     <div key={i} className="brutal-card" style={{ padding: '1.5rem' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{job.company}</h3>
-                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', background: 'var(--yellow)', padding: '0.2rem 0.5rem', border: '2px solid black' }}>{job.period}</span>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{lang === 'ja' ? job.companyJa : job.companyEn}</h3>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', background: 'var(--yellow)', padding: '0.2rem 0.5rem', border: '2px solid black' }}>{lang === 'ja' ? job.periodJa : job.periodEn}</span>
                                         </div>
-                                        <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{job.role}</div>
-                                        <p style={{ margin: 0, fontSize: '0.9rem', color: '#666' }}>{job.description}</p>
+                                        <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{lang === 'ja' ? job.roleJa : job.roleEn}</div>
+                                        <p style={{ margin: 0, fontSize: '0.95rem' }}>{lang === 'ja' ? job.descriptionJa : job.descriptionEn}</p>
+                                        {job.url && (
+                                            <a href={job.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
+                                                {t.sourceLink}
+                                            </a>
+                                        )}
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div>
-                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>Awards</h2>
+                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.awardsTitle}</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                 {awards.map((award, i) => (
                                     <div key={i} className="brutal-card" style={{ padding: '1.5rem', borderLeft: '8px solid var(--accent-color)' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-                                            <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{award.title}</h3>
-                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{award.date}</span>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                            <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{lang === 'ja' ? award.titleJa : award.titleEn}</h3>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{lang === 'ja' ? award.dateJa : award.dateEn}</span>
                                         </div>
-                                        <p style={{ margin: 0, fontSize: '0.9rem' }}>{award.description}</p>
+                                        <p style={{ margin: 0, fontSize: '0.95rem' }}>{lang === 'ja' ? award.descriptionJa : award.descriptionEn}</p>
+                                        {award.url && (
+                                            <a href={award.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
+                                                {t.sourceLink}: {lang === 'ja' ? (award.sourceJa || award.url) : (award.sourceEn || award.url)}
+                                            </a>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -163,12 +197,31 @@ function HomePage({ lang, t, onWorkClick }) {
                     <div className="grid">
                         {featured.map((p, i) => (
                             <div key={i} className="brutal-card" style={getRandomRotation()} onClick={() => onWorkClick(p)}>
-                                <div className="project-img-container"><ProjectImage src={p.image} title={p.title} /></div>
+                                <div className="project-img-container"><ProjectImage src={p.image} title={p.title} githubUrl={p.githubUrl} /></div>
                                 <div>{p.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}</div>
                                 <h3 style={{ marginTop: '1rem' }}>{p.title}</h3>
                                 <p style={{ marginBottom: '1.5rem', minHeight: '4.5rem' }}>{lang === 'ja' ? p.descJa : p.descEn}</p>
                                 <button className="brutal-btn" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>{t.viewProject}</button>
                             </div>
+                        ))}
+                    </div>
+                </section>
+
+                <section style={{ margin: '4rem 0' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', gap: '1rem', flexWrap: 'wrap' }}>
+                        <h2 style={{ marginBottom: 0 }}>{t.mediaTitle}</h2>
+                        <Link to="/media" className="brutal-btn" style={{ fontSize: '0.9rem' }}>{t.allMedia} →</Link>
+                    </div>
+                    <div className="grid">
+                        {mediaItems.slice(0, 3).map((item) => (
+                            <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className="brutal-card media-card">
+                                <div className="media-card-top">
+                                    <span className="brutal-tag">{item.outlet}</span>
+                                    <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>{item.date.slice(0, 7).replace('-', '.')}</span>
+                                </div>
+                                <h3 style={{ marginTop: '0.8rem' }}>{lang === 'ja' ? item.titleJa : item.titleEn}</h3>
+                                <p>{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
+                            </a>
                         ))}
                     </div>
                 </section>
