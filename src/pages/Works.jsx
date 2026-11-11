@@ -5,7 +5,7 @@ import ProjectImage from '../components/ProjectImage'
 
 function WorksPage({ lang, t, onWorkClick }) {
     const [filter, setFilter] = useState('All')
-    const categories = ['All', 'Software', 'Hardware', 'Research']
+    const categories = ['All', 'Software', 'Hardware', 'Research', 'Media']
     const filteredWorks = filter === 'All' ? allWorksData : allWorksData.filter(w => w.category === filter)
     return (
         <div className="container" style={{ paddingTop: '5rem' }}>

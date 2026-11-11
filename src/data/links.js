@@ -12,6 +12,8 @@ export const linksData = [
         category: "Tech Blog",
         items: [
             { name: "Note", url: "https://note.com/electrical_cat", icon: "note" },
+            { name: "Substack", url: "https://naokitakahashi1.substack.com", icon: "substack" },
+            { name: "SmartGlasses", url: "https://smartglasses.fyi", icon: "glasses" },
             { name: "Qiita", url: "https://qiita.com/nya3_neko2", icon: "qiita" },
             { name: "Zenn", url: "https://zenn.dev/nya3_neko2", icon: "zenn" },
         ]

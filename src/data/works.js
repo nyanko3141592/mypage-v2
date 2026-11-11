@@ -14,12 +14,35 @@ import menulensImg from '../assets/projects/menulens.webp'
 
 export const allWorksData = [
     {
+        id: "inspiration-cat",
+        title: "InspirationCat",
+        category: "Software",
+        tags: ["Web", "On-device", "2026"],
+        descJa: "動物の写真から「キュピーン」風の画像を作るWebアプリ。背景除去までブラウザの中で終わる。ITmedia NEWS が、初日50万アクセスでもサーバ代がかからない構成として紹介した。",
+        descEn: "A web app that turns an animal photo into a “flash of insight” image. Background removal stays in the browser. ITmedia NEWS wrote about the first-day 500,000 visits and the zero server bill.",
+        image: null,
+        twitterId: null,
+        url: "https://inspiration-cat.pages.dev/",
+        githubUrl: "https://github.com/nyanko3141592/InspirationCat"
+    },
+    {
+        id: "smartglasses",
+        title: "SmartGlasses.fyi",
+        category: "Media",
+        tags: ["Smart Glasses", "Editorial"],
+        descJa: "スマートグラスのレビュー、ニュース、比較を載せる媒体。運営は Naoki（@nya3_neko2）。",
+        descEn: "Reviews, news, and comparisons of smart glasses. Operated by Naoki (@nya3_neko2).",
+        image: null,
+        twitterId: null,
+        url: "https://smartglasses.fyi/"
+    },
+    {
         id: "azookey-macos",
         title: "azooKey on macOS",
         category: "Software",
-        tags: ["MITOH IT 2024", "IME", "Personalization"],
-        descJa: "未踏IT人材育成事業の成果。macOS向けの個人最適化されたIMEで、賢い変換エンジンや「いい感じ変換」を搭載。",
-        descEn: "Result of MITOH IT program. Personalized IME for macOS featuring a smart conversion engine and 'Good Feel' conversion.",
+        tags: ["Super Creator", "IME", "macOS"],
+        descJa: "2024年度未踏ITで、三輪敬太さんと開発した macOS 向けの日本語入力。個人最適化と「いい感じ変換」を載せ、スーパークリエータに認定された。",
+        descEn: "macOS Japanese input built with Keita Miwa in the 2024 IPA Mitou program. Personalization, “good-feel” conversion, and a Super Creator certification.",
         image: azookeyImg,
         twitterId: "1891025933802361228"
     },
@@ -28,10 +51,11 @@ export const allWorksData = [
         title: "Zenzai",
         category: "Research",
         tags: ["NLP2025", "Neural Network"],
-        descJa: "ニューラルかな漢字変換システム。言語処理学会(NLP2025)にて共著で若手奨励賞を受賞。",
-        descEn: "Neural Kana-Kanji conversion system. Co-authored research received the Young Researcher Award at NLP2025.",
+        descJa: "ニューラルかな漢字変換。三輪敬太さんとの共著が、言語処理学会 NLP2025 の若手奨励賞を受けた。",
+        descEn: "Neural kana-kanji conversion. The paper, co-authored with Keita Miwa, received the NLP2025 Young Researcher Award.",
         image: zenzaiImg,
-        twitterId: null
+        twitterId: null,
+        url: "https://www.anlp.jp/proceedings/annual_meeting/2025/"
     },
     {
         id: "paperswipe",
