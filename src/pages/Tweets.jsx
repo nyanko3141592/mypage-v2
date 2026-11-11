@@ -1,7 +1,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { LuEye, LuHeart, LuBookmark, LuRepeat2, LuImage } from 'react-icons/lu'
 import { fetchTweets } from '../utils/twitter'
 import TwitterEmbed from '../components/TwitterEmbed'
+import { BackLink } from '../components/Ui'
 
 function TweetsPage({ lang, t }) {
     const { year } = useParams()
@@ -46,22 +48,24 @@ function TweetsPage({ lang, t }) {
     return (
         <div className="container">
             <div className="page-header">
-                <Link to="/x" className="back-link">← {t.back}</Link>
-                <h1>Tweets {year}</h1>
+                <BackLink to="/x" label={t.back} />
+                <h1>{year}</h1>
             </div>
 
             <div className="toolbar">
                 <input
-                    type="text"
+                    type="search"
                     placeholder={t.search}
                     className="flat-input"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    aria-label={t.search}
                 />
                 <select
                     className="flat-select"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
+                    aria-label={t.sort}
                 >
                     <option value="Date">{t.sortDate}</option>
                     <option value="Likes">{t.sortLikes}</option>
@@ -87,19 +91,20 @@ function TweetsPage({ lang, t }) {
                                 <div className="tweet-text">{tw['Post text']}</div>
                                 <button
                                     type="button"
-                                    className="brutal-btn btn-secondary"
-                                    style={{ width: 'fit-content' }}
+                                    className="icon-btn"
+                                    aria-label={t.loadEmbed}
+                                    title={t.loadEmbed}
                                     onClick={(e) => toggleEmbed(tw.tweetId, e)}
                                 >
-                                    {t.loadEmbed}
+                                    <LuImage size={18} />
                                 </button>
                             </>
                         )}
                         <div className="tweet-stats">
-                            <div className="stat-item"><span>🚀</span> {tw['Impressions']}</div>
-                            <div className="stat-item"><span>❤️</span> {tw['Likes']}</div>
-                            <div className="stat-item"><span>📑</span> {tw['Bookmarks']}</div>
-                            <div className="stat-item"><span>🔄</span> {tw['Reposts']}</div>
+                            <div className="stat-item" title={t.sortImpressions}><LuEye size={16} aria-hidden="true" /> {tw['Impressions']}</div>
+                            <div className="stat-item" title={t.sortLikes}><LuHeart size={16} aria-hidden="true" /> {tw['Likes']}</div>
+                            <div className="stat-item" title="Bookmarks"><LuBookmark size={16} aria-hidden="true" /> {tw['Bookmarks']}</div>
+                            <div className="stat-item" title="Reposts"><LuRepeat2 size={16} aria-hidden="true" /> {tw['Reposts']}</div>
                         </div>
                     </div>
                 ))

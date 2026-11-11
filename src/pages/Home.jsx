@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon, FaGlasses } from 'react-icons/fa'
 import { SiWantedly, SiQiita, SiZenn, SiMisskey, SiSubstack } from 'react-icons/si'
 import { IoDocumentText } from 'react-icons/io5'
+import { LuArrowUpRight } from 'react-icons/lu'
 import profileIcon from '../assets/icon.svg'
 import { allWorksData } from '../data/works'
 import { linksData } from '../data/links'
@@ -10,6 +11,7 @@ import { workExperience, awards } from '../data/profile'
 import { mediaItems } from '../data/media'
 import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
+import { Favicon, TagList } from '../components/Ui'
 
 function nickname(handle) {
     return (handle || '').replace(/[\[\]]/g, '').trim()
@@ -66,10 +68,9 @@ function HomePage({ lang, t, onWorkClick }) {
                 <p className="profile-handle">{nickname(t.handle)} · @nya3_neko2</p>
                 <p className="profile-headline">{t.heroTitle}</p>
                 <p className="profile-bio">{t.heroBody}</p>
-                <div className="profile-actions">
-                    <Link to="/media" className="brutal-btn">{t.navMedia}</Link>
-                    <Link to="/blog/2025-recap" className="brutal-btn btn-secondary">2025 Recap</Link>
-                </div>
+                <p className="profile-actions">
+                    <Link to="/blog/2025-recap" className="quiet-link">2025 Recap</Link>
+                </p>
                 <div className="social-row">
                     {socialLinks.map(item => {
                         const socialKey = item.name.toLowerCase().replace(/[^a-z]/g, '').replace('xtwitter', 'twitter').replace('misskeyio', 'misskey')
@@ -82,6 +83,7 @@ function HomePage({ lang, t, onWorkClick }) {
                                 className="social-icon-btn"
                                 data-social={socialKey}
                                 title={item.name}
+                                aria-label={item.name}
                             >
                                 {item.iconComponent}
                             </a>
@@ -91,109 +93,114 @@ function HomePage({ lang, t, onWorkClick }) {
             </header>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.nowTitle}</h2>
-                </div>
-                <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer" className="list-row">
-                    <h3 className="row-title">{t.glassesTitle}</h3>
-                    <p className="row-body">{t.glassesBody}</p>
-                    <p className="section-link" style={{ marginTop: 8 }}>{t.glassesCta}</p>
+                <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer" className="list-row ext-row">
+                    <div className="work-row-body">
+                        <h3 className="row-title">{t.glassesTitle}</h3>
+                        <p className="row-body muted">{t.glassesBody}</p>
+                    </div>
+                    <LuArrowUpRight size={18} className="row-affordance" aria-hidden="true" />
                 </a>
-                <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer" className="list-row">
-                    <h3 className="row-title">{t.newsletterTitle}</h3>
-                    <p className="row-body">{t.newsletterBody}</p>
-                    <p className="section-link" style={{ marginTop: 8 }}>{t.newsletterCta}</p>
+                <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer" className="list-row ext-row">
+                    <div className="work-row-body">
+                        <h3 className="row-title">{t.newsletterTitle}</h3>
+                        <p className="row-body muted">{t.newsletterBody}</p>
+                    </div>
+                    <LuArrowUpRight size={18} className="row-affordance" aria-hidden="true" />
                 </a>
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.profile}</h2>
-                </div>
                 <div className="list-row">
                     <h3 className="row-title">{t.whoTitle}</h3>
-                    <p className="row-body">{t.whoDesc}</p>
+                    <p className="row-body muted">{t.whoDesc}</p>
                 </div>
                 <div className="list-row">
                     <h3 className="row-title">{t.profTitle}</h3>
-                    <p className="row-body">{t.profDesc}</p>
+                    <p className="row-body muted">{t.profDesc}</p>
                 </div>
                 <div className="list-row">
                     <h3 className="row-title">{t.interestsTitle}</h3>
-                    <p className="row-body">{t.interestsDesc}</p>
+                    <p className="row-body muted">{t.interestsDesc}</p>
                 </div>
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.experienceTitle}</h2>
-                </div>
-                {workExperience.map((job, i) => (
-                    <div key={i} className="list-row">
-                        <div className="row-meta">
-                            <span>{lang === 'ja' ? job.periodJa : job.periodEn}</span>
+                {workExperience.map((job, i) => {
+                    const company = lang === 'ja' ? job.companyJa : job.companyEn
+                    const title = job.url ? (
+                        <a href={job.url} target="_blank" rel="noopener noreferrer" className="row-title-link">
+                            {company}
+                            <LuArrowUpRight size={16} aria-hidden="true" />
+                        </a>
+                    ) : (
+                        <h3 className="row-title">{company}</h3>
+                    )
+                    return (
+                        <div key={i} className="list-row">
+                            <div className="row-meta">
+                                <span>{lang === 'ja' ? job.periodJa : job.periodEn}</span>
+                            </div>
+                            {title}
+                            <p className="row-body" style={{ fontWeight: 600 }}>{lang === 'ja' ? job.roleJa : job.roleEn}</p>
+                            <p className="row-body muted">{lang === 'ja' ? job.descriptionJa : job.descriptionEn}</p>
                         </div>
-                        <h3 className="row-title">{lang === 'ja' ? job.companyJa : job.companyEn}</h3>
-                        <p className="row-body" style={{ fontWeight: 600 }}>{lang === 'ja' ? job.roleJa : job.roleEn}</p>
-                        <p className="row-body muted">{lang === 'ja' ? job.descriptionJa : job.descriptionEn}</p>
-                        {job.url && (
-                            <a href={job.url} target="_blank" rel="noopener noreferrer" className="section-link" style={{ display: 'inline-block', marginTop: 8 }}>
-                                {t.sourceLink}
-                            </a>
-                        )}
-                    </div>
-                ))}
+                    )
+                })}
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.awardsTitle}</h2>
-                </div>
-                {awards.map((award, i) => (
-                    <div key={i} className="list-row">
-                        <div className="row-meta">
-                            <span>{lang === 'ja' ? award.dateJa : award.dateEn}</span>
+                {awards.map((award, i) => {
+                    const title = lang === 'ja' ? award.titleJa : award.titleEn
+                    const source = lang === 'ja' ? (award.sourceJa || '') : (award.sourceEn || '')
+                    return (
+                        <div key={i} className="list-row">
+                            <div className="row-meta">
+                                <span>{lang === 'ja' ? award.dateJa : award.dateEn}</span>
+                                {source && (
+                                    <>
+                                        <span>·</span>
+                                        {award.url ? (
+                                            <a href={award.url} target="_blank" rel="noopener noreferrer">{source}</a>
+                                        ) : (
+                                            <span>{source}</span>
+                                        )}
+                                    </>
+                                )}
+                            </div>
+                            {award.url && !source ? (
+                                <a href={award.url} target="_blank" rel="noopener noreferrer" className="row-title-link">
+                                    <span className="row-title">{title}</span>
+                                    <LuArrowUpRight size={16} aria-hidden="true" />
+                                </a>
+                            ) : (
+                                <h3 className="row-title">{title}</h3>
+                            )}
+                            <p className="row-body muted">{lang === 'ja' ? award.descriptionJa : award.descriptionEn}</p>
                         </div>
-                        <h3 className="row-title">{lang === 'ja' ? award.titleJa : award.titleEn}</h3>
-                        <p className="row-body muted">{lang === 'ja' ? award.descriptionJa : award.descriptionEn}</p>
-                        {award.url && (
-                            <a href={award.url} target="_blank" rel="noopener noreferrer" className="section-link" style={{ display: 'inline-block', marginTop: 8 }}>
-                                {t.sourceLink}: {lang === 'ja' ? (award.sourceJa || award.url) : (award.sourceEn || award.url)}
-                            </a>
-                        )}
-                    </div>
-                ))}
+                    )
+                })}
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.projectsTitle}</h2>
-                    <Link to="/works" className="section-link">{t.allWorks}</Link>
-                </div>
                 {featured.map((p) => (
                     <div key={p.id} className="list-row work-row" onClick={() => onWorkClick(p)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') onWorkClick(p) }}>
                         <div className="work-thumb">
                             <ProjectImage src={p.image} title={p.title} githubUrl={p.githubUrl} />
                         </div>
                         <div className="work-row-body">
-                            <div className="row-meta">
-                                {p.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}
-                            </div>
                             <h3 className="row-title">{p.title}</h3>
                             <p className="row-body muted">{lang === 'ja' ? p.descJa : p.descEn}</p>
+                            <TagList tags={p.tags} />
                         </div>
                     </div>
                 ))}
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.mediaTitle}</h2>
-                    <Link to="/media" className="section-link">{t.allMedia}</Link>
-                </div>
                 {mediaItems.slice(0, 3).map((item) => (
                     <a key={item.id} href={item.url} target="_blank" rel="noopener noreferrer" className="list-row media-card">
                         <div className="row-meta">
+                            <Favicon url={item.url} />
                             <span>{item.outlet}</span>
                             <span>·</span>
                             <span>{item.date.slice(0, 7).replace('-', '.')}</span>
@@ -205,31 +212,17 @@ function HomePage({ lang, t, onWorkClick }) {
             </section>
 
             <section className="section">
-                <div className="section-header">
-                    <h2>{t.blogTitle}</h2>
-                    <Link to="/blog" className="section-link">{t.readBlog}</Link>
-                </div>
                 {recentPosts.length > 0 ? (
                     recentPosts.map(post => (
                         <Link key={post.slug} to={`/blog/${post.slug}`} className="list-row">
                             <div className="row-meta">{new Date(post.date).toLocaleDateString()}</div>
                             <h3 className="row-title">{post.title}</h3>
-                            <div className="row-meta" style={{ marginTop: 8 }}>
-                                {post.tags && post.tags.slice(0, 2).map(tag => (
-                                    <span key={tag} className="brutal-tag">{tag}</span>
-                                ))}
-                            </div>
+                            <TagList tags={post.tags && post.tags.slice(0, 2)} />
                         </Link>
                     ))
                 ) : (
                     <div className="list-row"><p className="muted">{t.blogComing}</p></div>
                 )}
-                <div className="list-row">
-                    <div className="profile-actions">
-                        <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn btn-secondary">{t.visitNote}</a>
-                        <Link to="/x" className="brutal-btn btn-secondary">/x</Link>
-                    </div>
-                </div>
             </section>
         </div>
     )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { allWorksData } from '../data/works'
 import ProjectImage from '../components/ProjectImage'
+import { BackLink, TagList } from '../components/Ui'
 
 function WorksPage({ lang, t, onWorkClick }) {
     const [filter, setFilter] = useState('All')
@@ -10,9 +10,8 @@ function WorksPage({ lang, t, onWorkClick }) {
     return (
         <div className="container">
             <div className="page-header">
-                <Link to="/" className="back-link">← {t.back}</Link>
+                <BackLink to="/" label={t.back} />
                 <h1>{t.worksTitle}</h1>
-                <p className="page-subtitle">{t.worksSubtitle}</p>
             </div>
             <div className="filter-row">
                 {categories.map(cat => (
@@ -40,12 +39,9 @@ function WorksPage({ lang, t, onWorkClick }) {
                             <ProjectImage src={work.image} title={work.title} githubUrl={work.githubUrl} />
                         </div>
                         <div className="work-row-body">
-                            <div className="row-meta">
-                                <span className="brutal-tag">{work.category}</span>
-                                {work.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}
-                            </div>
                             <h3 className="row-title">{work.title}</h3>
                             <p className="row-body muted">{lang === 'ja' ? work.descJa : work.descEn}</p>
+                            <TagList tags={work.tags} />
                         </div>
                     </div>
                 ))}

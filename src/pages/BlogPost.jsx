@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { getPost } from '../utils/posts'
 import TwitterEmbed from '../components/TwitterEmbed'
 import LinkPreview from '../components/LinkPreview'
+import { BackLink, TagList } from '../components/Ui'
 
 function BlogPostPage({ t }) {
     const { slug } = useParams()
@@ -67,7 +68,7 @@ function BlogPostPage({ t }) {
     return (
         <div className="container">
             <div className="page-header">
-                <Link to="/blog" className="back-link">← {t.back}</Link>
+                <BackLink to="/blog" label={t.back} />
             </div>
             <article>
                 <header className="article-header">
@@ -75,11 +76,7 @@ function BlogPostPage({ t }) {
                         {new Date(post.date).toLocaleDateString()}
                     </div>
                     <h1 className="profile-name" style={{ fontSize: 'clamp(1.4rem, 6vw, 1.9rem)' }}>{post.title}</h1>
-                    <div style={{ marginTop: 12 }}>
-                        {post.tags && post.tags.map(tag => (
-                            <span key={tag} className="brutal-tag">{tag}</span>
-                        ))}
-                    </div>
+                    <TagList tags={post.tags} />
                 </header>
                 <div className="markdown-content article-body">
                     <ReactMarkdown

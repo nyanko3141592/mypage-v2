@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { LuEye } from 'react-icons/lu'
 import { fetchTweets } from '../utils/twitter'
+import { BackLink } from '../components/Ui'
 
 function AnalyticsHome({ lang, t }) {
     const [stats, setStats] = useState({
         2025: { loading: true, totalImp: 0, topTweet: null },
         2024: { loading: true, totalImp: 0, topTweet: null }
     })
-    const navigate = useNavigate()
 
     useEffect(() => {
         fetchTweets('2025').then(data => {
@@ -36,36 +37,24 @@ function AnalyticsHome({ lang, t }) {
         const formatter = Intl.NumberFormat('en', { notation: "compact" })
 
         return (
-            <div className="list-row year-block">
+            <Link to={`/x/${year}`} className="list-row year-block">
                 <h2>{year}</h2>
-                <div className="stat-block">
-                    <div className="stat-label">{t.totalImp}</div>
-                    <div className="stat-value">{formatter.format(yearStats.totalImp)}</div>
+                <div className="stat-inline">
+                    <LuEye size={16} aria-label={t.totalImp} title={t.totalImp} />
+                    <span className="stat-value">{formatter.format(yearStats.totalImp)}</span>
                 </div>
                 {yearStats.topTweet && (
-                    <div className="stat-block">
-                        <div className="stat-label">{t.mostViral} · {formatter.format(yearStats.topTweet.impCount)}</div>
-                        <p className="tweet-text muted">{yearStats.topTweet['Post text']}</p>
-                    </div>
+                    <p className="tweet-text muted">{yearStats.topTweet['Post text']}</p>
                 )}
-                <button
-                    type="button"
-                    className="brutal-btn"
-                    onClick={() => navigate(`/x/${year}`)}
-                    style={{ marginTop: 16 }}
-                >
-                    {t.exploreYear}
-                </button>
-            </div>
+            </Link>
         )
     }
 
     return (
         <div className="container">
             <div className="page-header">
-                <Link to="/" className="back-link">← {t.back}</Link>
+                <BackLink to="/" label={t.back} />
                 <h1>{t.analyticsTitle}</h1>
-                <p className="page-subtitle">{t.analyticsSubtitle}</p>
             </div>
             {renderYearCard(2025)}
             {renderYearCard(2024)}

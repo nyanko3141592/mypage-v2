@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { mediaItems } from '../data/media'
+import { BackLink, Favicon } from '../components/Ui'
 
 const kindOrder = ['all', 'interview', 'news', 'profile']
 
@@ -24,7 +24,7 @@ function MediaPage({ lang, t }) {
     return (
         <div className="container">
             <div className="page-header">
-                <Link to="/" className="back-link">← {t.back}</Link>
+                <BackLink to="/" label={t.back} />
                 <h1>{t.mediaTitle}</h1>
                 <p className="page-subtitle">{t.mediaSubtitle}</p>
             </div>
@@ -50,15 +50,13 @@ function MediaPage({ lang, t }) {
                         className="list-row media-card"
                     >
                         <div className="row-meta media-card-top">
-                            <span>{kindLabel[item.kind]}</span>
-                            <span>·</span>
+                            <Favicon url={item.url} />
                             <span>{item.outlet}</span>
                             <span>·</span>
                             <span>{formatDate(item, lang)}</span>
                         </div>
                         <h2 className="row-title">{lang === 'ja' ? item.titleJa : item.titleEn}</h2>
                         <p className="row-body muted">{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
-                        <p className="section-link" style={{ marginTop: 8 }}>{t.readArticle}</p>
                     </a>
                 ))}
             </div>

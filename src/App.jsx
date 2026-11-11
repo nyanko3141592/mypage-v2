@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { LuLayers, LuNewspaper, LuPenLine, LuChartNoAxesColumn } from 'react-icons/lu'
 import Nav from './components/Nav'
 import ProjectModal from './components/ProjectModal'
 import HomePage from './pages/Home'
@@ -33,10 +34,10 @@ function App() {
           <footer className="site-footer">
             <p className="footer-copy">{t.stayBrutal}</p>
             <div className="footer-links">
-              <Link to="/works">/works</Link>
-              <Link to="/media">/media</Link>
-              <Link to="/blog">/blog</Link>
-              <Link to="/x">/x</Link>
+              <Link to="/works" className="icon-btn" aria-label={t.navWorks} title={t.navWorks}><LuLayers size={18} /></Link>
+              <Link to="/media" className="icon-btn" aria-label={t.navMedia} title={t.navMedia}><LuNewspaper size={18} /></Link>
+              <Link to="/blog" className="icon-btn" aria-label={t.navBlog} title={t.navBlog}><LuPenLine size={18} /></Link>
+              <Link to="/x" className="icon-btn" aria-label={t.analyticsTitle} title={t.analyticsTitle}><LuChartNoAxesColumn size={18} /></Link>
             </div>
           </footer>
         </div>
