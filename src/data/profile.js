@@ -2,12 +2,12 @@ export const workExperience = [
     {
         companyJa: "株式会社CoeFont（旧・株式会社Yellston）",
         companyEn: "CoeFont Co., Ltd. (formerly Yellston)",
-        roleJa: "President / 共同創業者",
-        roleEn: "President / Co-founder",
+        roleJa: "President / 創業メンバー",
+        roleEn: "President / Founding member",
         periodJa: "2020年 – 現在",
         periodEn: "2020 – Present",
-        descriptionJa: "2020年からの創業メンバー。対外的な肩書きは President で、日本向けの統括を務める。これまでにマーケティング、セールス、カスタマーサポートも担当した。",
-        descriptionEn: "Founding member since 2020. The external title is President, overseeing the Japan side. Previously led marketing, sales, and customer support.",
+        descriptionJa: "創業メンバーであり President。2020年から継続して関わっている。",
+        descriptionEn: "Founding member and President, continuously involved since 2020.",
         url: "https://www.coefont.com/ja/Company/",
     },
     {
