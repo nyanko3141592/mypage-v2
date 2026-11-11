@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { mediaItems } from '../data/media'
+import { BackLink, Favicon } from '../components/Ui'
 
 const kindOrder = ['all', 'interview', 'news', 'profile']
 
@@ -9,7 +9,7 @@ function formatDate(item, lang) {
     if (label) return label
     if (!item.date) return ''
     const [year, month, day] = item.date.split('-')
-    return `${year}.${month}.${day}`
+    return year + '.' + month + '.' + day
 }
 
 function MediaPage({ lang, t }) {
@@ -22,41 +22,41 @@ function MediaPage({ lang, t }) {
     }
 
     return (
-        <div className="container" style={{ paddingTop: '5rem' }}>
-            <Link to="/" className="brutal-btn" style={{ marginBottom: '2rem' }}>← {t.back}</Link>
-            <h1 style={{ fontSize: '3.5rem' }}>{t.mediaTitle}</h1>
-            <p style={{ fontSize: '1.2rem', marginBottom: '2rem', fontFamily: 'var(--font-mono)', maxWidth: '40rem' }}>
-                {t.mediaSubtitle}
-            </p>
-            <div style={{ marginBottom: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+        <div className="container">
+            <div className="page-header">
+                <BackLink to="/" label={t.back} />
+                <h1>{t.mediaTitle}</h1>
+                <p className="page-subtitle">{t.mediaSubtitle}</p>
+            </div>
+            <div className="filter-row">
                 {kindOrder.map((kind) => (
                     <button
                         key={kind}
-                        className="brutal-btn"
+                        type="button"
+                        className={'chip' + (filter === kind ? ' is-active' : '')}
                         onClick={() => setFilter(kind)}
-                        style={{ background: filter === kind ? 'var(--yellow)' : 'white', color: 'black', padding: '0.5rem 1rem' }}
                     >
                         {kind === 'all' ? t.mediaAll : kindLabel[kind]}
                     </button>
                 ))}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div>
                 {visible.map((item) => (
                     <a
                         key={item.id}
                         href={item.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="brutal-card media-card"
+                        className="list-row media-card"
                     >
-                        <div className="media-card-top">
-                            <span className="brutal-tag" style={{ background: 'black', color: 'white' }}>{kindLabel[item.kind]}</span>
-                            <span className="brutal-tag">{item.outlet}</span>
-                            <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{formatDate(item, lang)}</span>
+                        <div className="row-meta media-card-top">
+                            <Favicon url={item.url} />
+                            <span>{item.outlet}</span>
+                            <span>·</span>
+                            <span>{formatDate(item, lang)}</span>
                         </div>
-                        <h2 style={{ fontSize: '1.6rem', margin: '0.75rem 0' }}>{lang === 'ja' ? item.titleJa : item.titleEn}</h2>
-                        <p style={{ margin: 0, fontSize: '1.05rem' }}>{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
-                        <div style={{ marginTop: '1rem', fontFamily: 'var(--font-mono)', fontWeight: 700 }}>{t.readArticle} →</div>
+                        <h2 className="row-title">{lang === 'ja' ? item.titleJa : item.titleEn}</h2>
+                        <p className="row-body muted">{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
                     </a>
                 ))}
             </div>
