@@ -139,10 +139,13 @@ function HomePage({ lang, t, onWorkClick }) {
         {sectionVisible('media') && <>
         <section className="section" id="media">
             <div className="section-header"><h2>{t.mediaTitle}</h2><Link className="section-link" to="/media">{label('掲載をすべて見る', 'See all coverage')}</Link></div>
-            {mediaItems.slice(0, 3).map(item => <div key={item.id} className="list-row">
+            {mediaItems.slice(0, 3).map(item => <div key={item.id} className="list-row media-row">
+                <div className="media-card-text">
                 <div className="row-meta">{item.outlet} · {item.date.slice(0, 7).replace('-', '.')}</div>
                 <h3 className="row-title"><a href={item.url} target="_blank" rel="noopener noreferrer">{lang === 'ja' ? item.titleJa : item.titleEn}</a></h3>
                 <p className="row-body muted">{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
+                </div>
+                {item.image && <img className="media-thumb" src={item.image} alt="" loading="lazy" />}
             </div>)}
         </section>
         </>}

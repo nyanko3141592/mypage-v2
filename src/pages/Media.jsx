@@ -49,6 +49,7 @@ function MediaPage({ lang, t }) {
                         rel="noopener noreferrer"
                         className="list-row media-card"
                     >
+                        <div className="media-card-text">
                         <div className="row-meta media-card-top">
                             <Favicon url={item.url} />
                             <span>{item.outlet}</span>
@@ -57,6 +58,8 @@ function MediaPage({ lang, t }) {
                         </div>
                         <h2 className="row-title">{lang === 'ja' ? item.titleJa : item.titleEn}</h2>
                         <p className="row-body muted">{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
+                        </div>
+                        {item.image && <img className="media-thumb" src={item.image} alt="" loading="lazy" />}
                     </a>
                 ))}
             </div>
