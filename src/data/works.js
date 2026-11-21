@@ -19,10 +19,15 @@ import rayneoIoClientImg from '../assets/projects/rayneo-io-client.webp'
 import dopagakiImeImg from '../assets/projects/dopagaki-ime.webp'
 import mekakushiNekoImg from '../assets/projects/mekakushi-neko.webp'
 import azookeyStatelessImeImg from '../assets/projects/azookey-stateless-ime.webp'
+import receiptportImg from '../assets/projects/receiptport.webp'
+import drivescapeImg from '../assets/projects/drivescape.webp'
 import eneosChargePlusMapImg from '../assets/projects/eneos-charge-plus-map.webp'
 import kameTrendImg from '../assets/projects/kame-trend.webp'
 import pegboardBoxMakerImg from '../assets/projects/pegboard-box-maker.webp'
+import tiltsipImg from '../assets/projects/tiltsip.webp'
 import uchinokoIdPhotoImg from '../assets/projects/uchinoko-id-photo.webp'
+import schoolPrintOrganizerImg from '../assets/projects/school-print-organizer.webp'
+import arttokImg from '../assets/projects/arttok.webp'
 import shadowhandImg from '../assets/projects/shadowhand.webp'
 import eyeDropHolderImg from '../assets/projects/eye-drop-holder.webp'
 import bouncerImg from '../assets/projects/bouncer.webp'
@@ -38,6 +43,7 @@ import remotionVoicevoxTemplateImg from '../assets/projects/remotion-voicevox-te
 import xScoreImg from '../assets/projects/x-score.webp'
 import ccwattImg from '../assets/projects/ccwatt.webp'
 import nya3neko2GamesImg from '../assets/projects/nya3neko2-games.webp'
+import pocketlouvreImg from '../assets/projects/pocketlouvre.webp'
 import chatgptSuperchatImg from '../assets/projects/chatgpt-superchat.webp'
 import faceblurSnsGuardImg from '../assets/projects/faceblur-sns-guard.webp'
 import answerHelperSiteImg from '../assets/projects/answer-helper-site.webp'
@@ -68,6 +74,7 @@ import arrowKeycapsImg from '../assets/projects/arrow-keycaps.webp'
 import freezerAlarmImg from '../assets/projects/freezer-alarm.webp'
 import marbleMazeImg from '../assets/projects/marble-maze.webp'
 import azooeditorImg from '../assets/projects/azooeditor.webp'
+import detomaneImg from '../assets/projects/detomane.webp'
 
 export const allWorksData = [
     {
@@ -154,6 +161,28 @@ export const allWorksData = [
         githubUrl: "https://github.com/nyanko3141592/azookey-stateless-ime"
     },
     {
+        id: "receiptport",
+        title: "ReceiptPort — 領収書管理",
+        category: "Software",
+        tags: ["iOS", "OCR", "Finance", "AI Agent"],
+        descJa: "領収書を撮影して店名・日付・金額・明細を読み取り、フォルダやタグで整理して画像やCSVに書き出せるiOSアプリ。読み取り結果をAIエージェント向けのJSONにまとめ、Google Drive経由で渡すこともできる。",
+        descEn: "An iOS app that photographs receipts, reads the store name, date, amount, and line items, organizes them with folders and tags, and exports images or CSV. It can also bundle the results into JSON for AI agents and hand them over through Google Drive.",
+        image: receiptportImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6811466007"
+    },
+    {
+        id: "drivescape",
+        title: "DriveScape: ドライブ記録",
+        category: "Software",
+        tags: ["iOS", "GPS", "Maps"],
+        descJa: "GPSでドライブのルート・距離・時間を記録し、撮った写真や動画を地図上の地点に並べたDrive Logを作るiOSアプリ。車・バイク・自転車に対応し、共有時は出発・到着地点を既定で隠す。",
+        descEn: "An iOS app that records a drive's route, distance, and time with GPS and turns photos and videos into a Drive Log placed on the map. It supports cars, motorcycles, and bicycles, and hides the exact start and end points by default when sharing.",
+        image: drivescapeImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6802062209"
+    },
+    {
         id: "eneos-charge-plus-map",
         title: "ENEOS Charge Plus Map",
         category: "Software",
@@ -187,6 +216,18 @@ export const allWorksData = [
         url: "https://skadisbox.uk/"
     },
     {
+        id: "tiltsip",
+        title: "TiltSip",
+        category: "Software",
+        tags: ["iOS", "Simulation", "Fun"],
+        descJa: "iPhoneの画面全体を揺れるグラスにする液体シミュレーションアプリ。傾けると水面が水平を保ち、縁を越えた分だけ液体が減る。",
+        descEn: "A liquid simulation app that turns the whole iPhone screen into a sloshing glass. When you tilt it, the surface stays level and only the liquid that goes over the rim drains away.",
+        image: tiltsipImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6798895099",
+        githubUrl: "https://github.com/nyanko3141592/tiltsip-ios"
+    },
+    {
         id: "uchinoko-id-photo",
         title: "うちの子証明写真メーカー",
         category: "Software",
@@ -197,6 +238,28 @@ export const allWorksData = [
         twitterId: "2084919336138092953",
         url: "https://local-idphotomaker.pages.dev/",
         githubUrl: "https://github.com/nyanko3141592/Local-IdPhotoMaker"
+    },
+    {
+        id: "school-print-organizer",
+        title: "園・学校プリント整理",
+        category: "Software",
+        tags: ["iOS", "OCR", "On-device"],
+        descJa: "園や学校から届くプリントを撮影して保存し、端末内の文字認識で全文検索できるiOSアプリ。期限や持ち物は必要なときだけ追加でき、ログイン不要で画像や文字情報は端末内で扱う。",
+        descEn: "An iOS app that photographs notices from daycare or school and makes them full-text searchable with on-device text recognition. Deadlines and things to bring can be added only when needed; no login is required, and images and text stay on the device.",
+        image: schoolPrintOrganizerImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6796594480"
+    },
+    {
+        id: "arttok",
+        title: "ArtTok",
+        category: "Software",
+        tags: ["iOS", "Art", "AI"],
+        descJa: "パブリックドメインの名画を縦型リールで巡れるiOSアプリ。美術家をフォローでき、AIによる解説や鑑賞ガイドがある。メトロポリタン美術館のオープンアクセス作品を使っている。",
+        descEn: "An iOS app for browsing public-domain masterpieces in a vertical reel. You can follow artists, and AI explanations and viewing guides help you look closer. It uses works from the Metropolitan Museum of Art's Open Access collection.",
+        image: arttokImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6785705206"
     },
     {
         id: "shadowhand",
@@ -414,6 +477,17 @@ export const allWorksData = [
         twitterId: "2006429309028929871",
         url: "https://game.nya3neko2.dev/",
         githubUrl: "https://github.com/nyanko3141592/kagamimochi-game"
+    },
+    {
+        id: "pocketlouvre",
+        title: "PocketLouvre",
+        category: "Software",
+        tags: ["iOS", "Widget", "Gemini"],
+        descJa: "ルーヴル美術館のコレクションから毎日1枚の作品を選び、アプリとホーム画面ウィジェットに表示するiOSアプリ。解説はGeminiで翻訳して読める。",
+        descEn: "An iOS app that picks one work from the Louvre's collection each day and shows it in the app and a home screen widget. Descriptions can be read in translation via Gemini.",
+        image: pocketlouvreImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6755623684"
     },
     {
         id: "chatgpt-superchat",
@@ -727,6 +801,17 @@ export const allWorksData = [
         image: azooeditorImg,
         twitterId: "1754696199490408727",
         url: "https://apps.apple.com/us/app/azooeditor-%E3%82%B7%E3%83%B3%E3%83%97%E3%83%AB%E3%81%AA%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%85%A5%E5%8A%9B%E3%82%A8%E3%83%87%E3%82%A3%E3%82%BF/id6477343376"
+    },
+    {
+        id: "detomane",
+        title: "でとまね",
+        category: "Software",
+        tags: ["iOS", "Lifestyle"],
+        descJa: "デートを記録するiOSアプリ。複数のパートナーを登録でき、相手との会話も記録できる。",
+        descEn: "An iOS app for keeping a record of dates. You can register multiple partners and also log conversations with them.",
+        image: detomaneImg,
+        twitterId: null,
+        url: "https://apps.apple.com/jp/app/id6472305663"
     },
     {
         id: "inspiration-cat",
