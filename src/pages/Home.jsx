@@ -12,6 +12,7 @@ import { talks } from '../data/talks'
 import { mediaItems } from '../data/media'
 import { getPosts } from '../utils/posts'
 import { TagList } from '../components/Ui'
+import ProjectImage from '../components/ProjectImage'
 
 function HomePage({ lang, t, onWorkClick }) {
     const [recentPosts, setRecentPosts] = useState([])
@@ -123,9 +124,12 @@ function HomePage({ lang, t, onWorkClick }) {
         {sectionVisible('works') && <>
         <section className="section" id="works">
             <div className="section-header"><h2>{label('主な作品', 'Selected Works')}</h2><Link className="section-link" to="/works">{t.worksTitle}</Link></div>
-            {featured.map(work => <div key={work.id} className="list-row work-row text-work-row" onClick={() => onWorkClick(work)} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter') onWorkClick(work) }}>
-                <div className="work-row-body"><h3 className="row-title">{work.title}</h3><p className="row-body muted">{lang === 'ja' ? work.descJa : work.descEn}</p><TagList tags={work.tags} /></div>
-            </div>)}
+            <div className="works-grid">
+                {featured.map(work => <div key={work.id} className="work-tile" onClick={() => onWorkClick(work)} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter') onWorkClick(work) }}>
+                    <div className="work-tile-image"><ProjectImage src={work.image} title={work.title} githubUrl={work.githubUrl} /></div>
+                    <div className="work-tile-content"><h3 className="row-title">{work.title}</h3><TagList tags={work.tags} /></div>
+                </div>)}
+            </div>
         </section>
         </>}
 
