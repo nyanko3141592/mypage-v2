@@ -1,12 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import { LuHouse, LuLayers, LuNewspaper, LuPenLine, LuChartNoAxesColumn, LuMoon, LuSun } from 'react-icons/lu'
+import { LuHouse, LuLayers, LuNewspaper, LuPenLine, LuChartNoAxesColumn, LuMoon, LuSun, LuLink, LuMessageCircle } from 'react-icons/lu'
 
 const links = [
     { to: '/', labelJa: 'ホーム', labelEn: 'Home', end: true, icon: LuHouse },
     { to: '/works', labelJa: '作品', labelEn: 'Works', icon: LuLayers },
     { to: '/media', labelJa: 'メディア', labelEn: 'Media', icon: LuNewspaper },
     { to: '/blog', labelJa: 'ブログ', labelEn: 'Blog', icon: LuPenLine },
+    { to: '/x/2025', labelJa: 'ポスト', labelEn: 'Posts', icon: LuMessageCircle },
     { to: '/x', labelJa: 'Analytics', labelEn: 'Analytics', icon: LuChartNoAxesColumn },
+    { to: '/links', labelJa: 'リンク', labelEn: 'Links', icon: LuLink },
 ]
 
 const Nav = ({ lang, setLang, theme, onToggleTheme }) => (
@@ -28,7 +30,7 @@ const Nav = ({ lang, setLang, theme, onToggleTheme }) => (
                                 aria-label={label}
                                 title={label}
                             >
-                                <Icon size={22} />
+                                <Icon size={22} /><span className="sidebar-link-label">{label}</span>
                             </NavLink>
                         </li>
                     )
