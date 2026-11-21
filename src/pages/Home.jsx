@@ -47,7 +47,7 @@ function HomePage({ lang, t, onWorkClick }) {
 
         <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
             <p><strong>{label('肩書き', 'Work')}：</strong>{t.profDesc}</p>
-            <p><strong>{label('受賞', 'Awards')}：</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 && lang === 'ja' ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p>
+            <p><strong>{label('受賞', 'Awards')}：</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p>
             <p><strong>{label('今', 'Now')}：</strong>{t.interestsDesc}</p>
             <p><strong>{label('リンク', 'Links')}：</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p>
             <div className="social-row">
