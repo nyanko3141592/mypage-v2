@@ -156,15 +156,6 @@ function HomePage({ lang, t, onWorkClick }) {
         </section>
         </>}
         </main>
-        <aside className="profile-rail" aria-label={label('プロフィール情報', 'Profile information')}>
-            <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
-                <div className="profile-fact"><p><strong>{label('仕事', 'Work')}</strong>{t.profDesc}</p></div>
-                <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}</span>)}</p></div>
-                <div className="profile-fact"><p><strong>{label('やっていること', 'Now')}</strong>{t.interestsDesc}</p></div>
-                <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
-            </section>
-            <section className="profile-link-card"><h2>{label('リンク', 'Links')}</h2>{['SmartGlasses', 'Substack', 'GitHub', 'X (Twitter)'].map(name => { const item = allLinks.find(link => link.name === name); return item && <a key={name} href={item.url} target="_blank" rel="noopener noreferrer">{name}<span>↗</span></a> })}</section>
-        </aside>
     </div>
 }
 

@@ -13,8 +13,8 @@
   --code-bg: #f7f9f9;
   --translucent-bg: rgba(255, 255, 255, 0.85);
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --column: 598px;
-  --sidebar: 260px;
+  --column: 600px;
+  --sidebar: 275px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -98,6 +98,8 @@ select {
 .app-shell {
   display: flex;
   justify-content: center;
+  max-width: 1265px;
+  margin: 0 auto;
   min-height: 100vh;
   background: var(--bg);
 }
@@ -151,6 +153,8 @@ select {
   border-radius: 999px;
   text-decoration: none;
 }
+
+.sidebar-link-label { display: none; }
 
 .sidebar-link:hover {
   background: var(--hover);
@@ -1057,8 +1061,6 @@ header {
 }
 
 @media (min-width: 989px) {
-  :root { --column: 720px; }
-
   .list-row { padding: 20px 24px; }
 
   .profile-facts {
@@ -1164,7 +1166,6 @@ header {
 }
 
 .home-topbar { display: none; }
-.profile-rail { display: none; }
 .home-layout { display: contents; }
 
 @media (min-width: 989px) {
@@ -1179,24 +1180,30 @@ header {
   .profile-fact:nth-child(odd) { border-right: 1px solid var(--divider); }
 }
 
-@media (min-width: 1200px) {
-  .timeline:has(.home-main) { max-width: 1024px; }
-  .timeline:has(.home-main) { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 320px); column-gap: 24px; align-content: start; }
-  .timeline:has(.home-main) > .profile-header,
-  .timeline:has(.home-main) > .home-topbar { grid-column: 1 / -1; }
-  .timeline:has(.home-main) > .profile-tabs { grid-column: 1; }
-  .home-main { grid-column: 1; min-width: 0; }
+.right-panel { display: none; }
+
+@media (min-width: 1100px) {
+  .app-shell { justify-content: flex-start; }
+  .timeline { flex: 0 0 var(--column); }
   .home-main > .profile-facts { display: none; }
-  .profile-rail { display: block; grid-column: 2; grid-row: 4; position: sticky; top: 12px; align-self: start; padding-top: 12px; }
-  .profile-tabs { top: 56px; }
-  .profile-rail .profile-facts { display: block; border: 1px solid var(--divider); border-radius: 16px; padding: 8px 16px; }
-  .profile-rail .profile-fact { padding: 12px 0; }
-  .profile-link-card { margin-top: 16px; padding: 16px; border: 1px solid var(--divider); border-radius: 16px; }
-  .profile-link-card h2 { font-size: var(--fs-lg); margin-bottom: 8px; }
-  .profile-link-card a { display: flex; justify-content: space-between; padding: 8px 0; color: var(--text); border-top: 1px solid var(--divider); }
-  .home-topbar { display: flex; position: sticky; top: 0; z-index: 6; align-items: center; gap: 8px; min-height: 56px; padding: 8px 24px; background: var(--translucent-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
-  .home-topbar strong { font-size: var(--fs-md); }
-  .home-topbar span { color: var(--text-secondary); font-size: var(--fs-xs); }
+  .right-panel { display: flex; flex: 0 0 350px; flex-direction: column; gap: 16px; position: sticky; top: 0; align-self: flex-start; max-height: 100vh; margin-left: 30px; padding: 8px 0 16px; overflow-y: auto; }
+  .right-card { background: var(--code-bg); border-radius: 16px; padding: 12px 16px; }
+  .right-card h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+  .panel-search { display: flex; align-items: center; gap: 10px; min-height: 44px; border-radius: 999px; padding: 0 16px; background: var(--code-bg); color: var(--text-secondary); }
+  .panel-search input { min-width: 0; width: 100%; border: 0; outline: 0; color: var(--text); background: transparent; font-size: var(--fs-md); }
+  .panel-fact { padding: 7px 0; font-size: var(--fs-sm); overflow-wrap: anywhere; }
+  .panel-fact strong { display: block; margin-bottom: 2px; }
+  .panel-fact p { color: var(--text-secondary); }
+  .panel-links a { display: flex; justify-content: space-between; margin: 0 -8px; padding: 8px; border-radius: 8px; color: var(--text); }
+  .panel-links a:hover { background: var(--hover); text-decoration: none; }
+  .panel-copyright { color: var(--text-secondary); font-size: var(--fs-xs); padding: 0 8px; }
+}
+
+@media (min-width: 1280px) {
+  .sidebar-links { align-items: stretch; }
+  .sidebar-link { width: auto; height: auto; min-height: 50px; justify-content: flex-start; gap: 18px; padding: 10px 16px; border-radius: 999px; font-size: 19px; }
+  .sidebar-link-label { display: inline; }
+  .sidebar-link.is-active { font-weight: 700; }
 }
 
 @media (max-width: 988px) {
