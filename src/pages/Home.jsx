@@ -7,6 +7,7 @@ import profileIcon from '../assets/icon.svg'
 import { allWorksData } from '../data/works'
 import { linksData } from '../data/links'
 import { workExperience, awards } from '../data/profile'
+import { talks } from '../data/talks'
 import { mediaItems } from '../data/media'
 import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
@@ -107,6 +108,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     </div>
                 </section>
 
+
                 <section style={{ margin: '4rem 0' }}>
                     <h2>Socials</h2>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
@@ -180,6 +182,27 @@ function HomePage({ lang, t, onWorkClick }) {
                                 ))}
                             </div>
                         </div>
+                    </div>
+                </section>
+
+                <section style={{ margin: '2.5rem 0 0' }}>
+                    <h2 style={{ borderBottom: 'var(--border-width) solid var(--text-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.talksTitle}</h2>
+                    <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
+                        {talks.map((talk, i) => (
+                            <div key={i} className="brutal-card" style={{ padding: '1.5rem', borderLeft: 'var(--border-width) solid var(--yellow)' }}>
+                                <span className="brutal-tag">{lang === 'ja' ? talk.kindJa : talk.kindEn}</span>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', margin: '0.75rem 0 0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                    <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{lang === 'ja' ? talk.titleJa : talk.titleEn}</h3>
+                                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{lang === 'ja' ? talk.dateJa : talk.dateEn}</span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: '0.95rem' }}>{lang === 'ja' ? talk.descriptionJa : talk.descriptionEn}</p>
+                                {talk.url && (
+                                    <a href={talk.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
+                                        {t.sourceLink}: {lang === 'ja' ? (talk.sourceJa || talk.url) : (talk.sourceEn || talk.url)}
+                                    </a>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </section>
 
