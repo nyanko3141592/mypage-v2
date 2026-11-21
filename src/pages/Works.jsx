@@ -25,22 +25,21 @@ function WorksPage({ lang, t, onWorkClick }) {
                     </button>
                 ))}
             </div>
-            <div>
+            <div className="works-grid">
                 {filteredWorks.map((work) => (
                     <div
                         key={work.id}
-                        className="list-row work-row works-item"
+                        className="work-tile"
                         onClick={() => onWorkClick(work)}
                         role="button"
                         tabIndex={0}
                         onKeyDown={(e) => { if (e.key === 'Enter') onWorkClick(work) }}
                     >
-                        <div className="work-thumb">
+                        <div className="work-tile-image">
                             <ProjectImage src={work.image} title={work.title} githubUrl={work.githubUrl} />
                         </div>
-                        <div className="work-row-body">
+                        <div className="work-tile-content">
                             <h3 className="row-title">{work.title}</h3>
-                            <p className="row-body muted">{lang === 'ja' ? work.descJa : work.descEn}</p>
                             <TagList tags={work.tags} />
                         </div>
                     </div>
