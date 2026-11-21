@@ -664,6 +664,68 @@ header {
   text-align: left;
 }
 
+/* X analytics and timeline */
+.x-page { min-width: 0; }
+.x-sticky-header { position: sticky; top: 0; z-index: 8; display: flex; align-items: center; gap: 22px; min-height: 56px; padding: 6px 16px; background: var(--translucent-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
+.x-sticky-header h1 { font-size: 20px; line-height: 1.2; }
+.x-sticky-header p { margin-top: 2px; color: var(--text-secondary); font-size: var(--fs-xs); }
+.x-back { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex: none; border-radius: 50%; color: var(--text); }
+.x-back:hover { background: var(--hover); text-decoration: none; }
+.x-year-tabs { position: sticky; top: 56px; z-index: 7; display: flex; background: var(--translucent-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
+.x-year-tab { position: relative; display: flex; justify-content: center; align-items: center; min-width: 50%; min-height: 52px; color: var(--text-secondary); font-size: var(--fs-sm); font-weight: 500; }
+.x-year-tab:hover { background: var(--hover); text-decoration: none; }
+.x-year-tab.is-active { color: var(--text); font-weight: 700; }
+.x-year-tab.is-active::after { content: ''; position: absolute; bottom: 0; width: 56px; height: 4px; border-radius: 999px; background: var(--accent); }
+.x-controls { padding: 12px 16px 8px; border-bottom: 1px solid var(--divider); }
+.x-search { display: flex; align-items: center; gap: 10px; height: 42px; margin-bottom: 10px; padding: 0 14px; border: 1px solid var(--divider); border-radius: 999px; color: var(--text-secondary); background: var(--code-bg); }
+.x-search:focus-within { border-color: var(--accent); color: var(--accent); }
+.x-search input { min-width: 0; width: 100%; border: 0; outline: 0; color: var(--text); background: transparent; font-size: var(--fs-sm); }
+.x-sort-tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+.x-sort-tabs button { flex: none; padding: 7px 9px; border: 0; border-radius: 4px; color: var(--text-secondary); background: transparent; font-size: 12px; cursor: pointer; }
+.x-sort-tabs button:hover { background: var(--hover); color: var(--text); }
+.x-sort-tabs button.is-active { color: var(--accent); font-weight: 700; }
+.tweet-row { display: flex; gap: 12px; padding: 12px 16px 8px; border-bottom: 1px solid var(--divider); cursor: pointer; color: var(--text); }
+.tweet-row:hover { background: var(--hover); }
+.tweet-avatar { width: 40px; height: 40px; flex: none; border-radius: 50%; object-fit: cover; }
+.tweet-content { min-width: 0; flex: 1; }
+.tweet-author { display: flex; align-items: baseline; gap: 5px; min-width: 0; line-height: 1.35; }
+.tweet-author strong { flex: none; font-size: var(--fs-sm); }
+.tweet-author span { overflow: hidden; color: var(--text-secondary); font-size: var(--fs-sm); text-overflow: ellipsis; white-space: nowrap; }
+.tweet-body { margin-top: 2px; font-size: 15px; line-height: 1.35; white-space: pre-wrap; overflow-wrap: anywhere; }
+.tweet-actions { display: flex; align-items: center; justify-content: space-between; gap: 2px; margin: 8px -8px 0; color: var(--text-secondary); }
+.tweet-action { display: inline-flex; align-items: center; gap: 4px; min-width: 0; padding: 0 4px 0 0; border: 0; color: inherit; background: transparent; font-size: 11px; cursor: pointer; }
+.tweet-action-icon, .tweet-embed-toggle { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex: none; border-radius: 50%; }
+.tweet-action:hover .tweet-action-icon, .tweet-embed-toggle:hover { background: var(--action-bg); color: var(--action-color); }
+.tweet-action-blue { --action-bg: rgba(29,155,240,.1); --action-color: #1d9bf0; }
+.tweet-action-green { --action-bg: rgba(0,186,124,.1); --action-color: #00ba7c; }
+.tweet-action-pink { --action-bg: rgba(249,24,128,.1); --action-color: #f91880; }
+.tweet-embed-toggle { margin-left: 0; border: 0; color: var(--text-secondary); background: transparent; cursor: pointer; }
+.tweet-embed-toggle.is-active { color: var(--accent); }
+.tweet-embed { margin: 10px 0; cursor: default; }
+.x-year-section { border-bottom: 8px solid var(--divider); }
+.x-year-heading { display: flex; align-items: center; justify-content: space-between; padding: 18px 16px 12px; color: var(--text); }
+.x-year-heading:hover { background: var(--hover); text-decoration: none; }
+.x-year-heading h2 { font-size: 23px; }
+.x-year-heading span { color: var(--accent); font-size: var(--fs-sm); }
+.x-summary { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 8px; padding: 14px 16px 18px; }
+.x-summary > div { display: flex; flex-direction: column; gap: 3px; }
+.x-summary strong { font-size: 22px; line-height: 1.15; font-weight: 800; letter-spacing: -.03em; }
+.x-summary-primary strong { font-size: 30px; }
+.x-summary span { color: var(--text-secondary); font-size: 12px; }
+.x-top-label { padding: 8px 16px 4px; font-size: var(--fs-sm); }
+.x-loading { padding: 20px 16px; }
+
+@media (max-width: 520px) {
+  .tweet-row { gap: 10px; padding-right: 12px; padding-left: 12px; }
+  .tweet-actions { gap: 0; margin-right: -6px; margin-left: -6px; }
+  .tweet-action { gap: 1px; font-size: 10px; }
+  .tweet-action-icon, .tweet-embed-toggle { width: 28px; height: 28px; }
+  .tweet-action svg { width: 16px; height: 16px; }
+  .x-summary { grid-template-columns: 1.2fr 1fr 1fr; padding-right: 12px; padding-left: 12px; }
+  .x-summary strong { font-size: 18px; }
+  .x-summary-primary strong { font-size: 26px; }
+}
+
 .footer-copy {
   margin: 0;
 }
