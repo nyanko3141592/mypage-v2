@@ -29,7 +29,7 @@ function WorksPage({ lang, t, onWorkClick }) {
                 {filteredWorks.map((work) => (
                     <div
                         key={work.id}
-                        className="list-row work-row"
+                        className="list-row work-row works-item"
                         onClick={() => onWorkClick(work)}
                         role="button"
                         tabIndex={0}
