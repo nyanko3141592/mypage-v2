@@ -328,7 +328,7 @@ header {
   padding: 0 var(--space-4) var(--space-4);
 }
 
-.profile-banner { height: 200px; margin: 0 calc(-1 * var(--space-4)); background: var(--banner); }
+.profile-banner { height: 200px; margin: 0 calc(-1 * var(--space-4)); background: var(--banner) url('/banner.jpg') center right / cover no-repeat; }
 .profile-topline { display: flex; align-items: flex-start; justify-content: space-between; min-height: 82px; }
 .profile-topline .profile-img { width: 134px; height: 134px; margin-top: -67px; border: 4px solid var(--bg); }
 .profile-topline .profile-actions { display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; margin: 12px 0 0; }
