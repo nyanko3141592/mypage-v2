@@ -196,10 +196,19 @@ function HomePage({ lang, t, onWorkClick }) {
                                     <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{lang === 'ja' ? talk.dateJa : talk.dateEn}</span>
                                 </div>
                                 <p style={{ margin: 0, fontSize: '0.95rem' }}>{lang === 'ja' ? talk.descriptionJa : talk.descriptionEn}</p>
-                                {talk.url && (
-                                    <a href={talk.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
-                                        {t.sourceLink}: {lang === 'ja' ? (talk.sourceJa || talk.url) : (talk.sourceEn || talk.url)}
-                                    </a>
+                                {(talk.url || talk.postUrl) && (
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: '1rem' }}>
+                                        {talk.url && (
+                                            <a href={talk.url} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
+                                                {t.sourceLink}: {lang === 'ja' ? (talk.sourceJa || talk.url) : (talk.sourceEn || talk.url)}
+                                            </a>
+                                        )}
+                                        {talk.postUrl && (
+                                            <a href={talk.postUrl} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: '0.75rem', fontFamily: 'var(--font-mono)', fontWeight: 700, textDecoration: 'underline' }}>
+                                                {t.sourceLink}: {lang === 'ja' ? (talk.postSourceJa || talk.postUrl) : (talk.postSourceEn || talk.postUrl)}
+                                            </a>
+                                        )}
+                                    </div>
                                 )}
                             </div>
                         ))}
