@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { LuMapPin, LuLink, LuBriefcaseBusiness } from 'react-icons/lu'
 import { FaTwitter, FaGithub, FaLinkedin, FaYoutube, FaReddit, FaMastodon, FaGlasses } from 'react-icons/fa'
 import { SiWantedly, SiQiita, SiZenn, SiMisskey, SiSubstack } from 'react-icons/si'
 import { IoDocumentText } from 'react-icons/io5'
@@ -14,6 +15,7 @@ import { TagList } from '../components/Ui'
 
 function HomePage({ lang, t, onWorkClick }) {
     const [recentPosts, setRecentPosts] = useState([])
+    const [activeTab, setActiveTab] = useState('all')
 
     useEffect(() => {
         getPosts().then(posts => setRecentPosts(posts.slice(0, 3)))
@@ -34,15 +36,43 @@ function HomePage({ lang, t, onWorkClick }) {
         return item ? { ...item, iconComponent: iconMap[name] } : null
     }).filter(Boolean)
     const label = (ja, en) => lang === 'ja' ? ja : en
+    const tabs = [
+        ['all', label('すべて', 'All')], ['experience', label('経歴', 'Experience')], ['awards', t.awardsTitle],
+        ['talks', t.talksTitle], ['works', label('作品', 'Works')], ['media', t.mediaTitle], ['blog', t.blogTitle],
+    ]
+    const sectionVisible = id => activeTab === 'all' || activeTab === id
 
     return <div>
         <header className="profile-header">
-            <img src={profileIcon} alt="Profile" className="profile-img" />
+            <div className="profile-banner" aria-hidden="true" />
+            <div className="profile-topline">
+                <img src={profileIcon} alt="Profile" className="profile-img" />
+                <div className="profile-actions">
+                    <div className="social-row">
+                        {socialLinks.map(item => {
+                            const socialKey = item.name.toLowerCase().replace(/[^a-z]/g, '').replace('xtwitter', 'twitter').replace('misskeyio', 'misskey')
+                            return <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" className="social-icon-btn" data-social={socialKey} title={item.name} aria-label={item.name}>{item.iconComponent}</a>
+                        })}
+                    </div>
+                    <a className="profile-primary-action" href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">SmartGlasses.fyi</a>
+                </div>
+            </div>
             <div className="profile-identity">
                 <h1 className="profile-name">Naoki Takahashi</h1>
                 <p className="profile-handle">@nya3_neko2</p>
             </div>
             <p className="profile-bio">{t.heroBody}</p>
+            <div className="profile-meta">
+                <span><LuMapPin />{label('東京', 'Tokyo')}</span>
+                <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer"><LuLink />smartglasses.fyi</a>
+                <span><LuBriefcaseBusiness />CoeFont</span>
+            </div>
+            <div className="profile-counts">
+                <span><strong>{allWorksData.length}</strong> {label('作品', 'Works')}</span>
+                <span><strong>{awards.length}</strong> {label('受賞', 'Awards')}</span>
+                <span><strong>{talks.length}</strong> {label('登壇', 'Talks')}</span>
+                <span><strong>{mediaItems.length}</strong> {label('掲載', 'Coverage')}</span>
+            </div>
         </header>
 
         <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
@@ -50,23 +80,13 @@ function HomePage({ lang, t, onWorkClick }) {
             <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p></div>
             <div className="profile-fact"><p><strong>{label('今', 'Now')}</strong>{t.interestsDesc}</p></div>
             <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
-            <div className="social-row">
-                {socialLinks.map(item => {
-                    const socialKey = item.name.toLowerCase().replace(/[^a-z]/g, '').replace('xtwitter', 'twitter').replace('misskeyio', 'misskey')
-                    return <a key={item.name} href={item.url} target="_blank" rel="noopener noreferrer" className="social-icon-btn" data-social={socialKey} title={item.name} aria-label={item.name}>{item.iconComponent}</a>
-                })}
-            </div>
         </section>
 
-        <nav className="section-nav" aria-label={label('ページ内リンク', 'On this page')}>
-            <a href="#experience">{label('経歴', 'Experience')}</a>
-            <a href="#awards">{t.awardsTitle}</a>
-            <a href="#talks">{t.talksTitle}</a>
-            <a href="#works">{label('主な作品', 'Selected Works')}</a>
-            <a href="#media">{t.mediaTitle}</a>
-            <a href="#blog">{t.blogTitle}</a>
+        <nav className="profile-tabs" aria-label={label('プロフィールタブ', 'Profile tabs')}>
+            {tabs.map(([id, title]) => <button key={id} type="button" className={'profile-tab' + (activeTab === id ? ' is-active' : '')} aria-pressed={activeTab === id} onClick={() => setActiveTab(id)}>{title}</button>)}
         </nav>
 
+        {sectionVisible('experience') && <>
         <section className="section" id="experience">
             <div className="section-header"><h2>{label('経歴', 'Experience')}</h2></div>
             {workExperience.map((job, index) => <div key={index} className="list-row">
@@ -76,7 +96,9 @@ function HomePage({ lang, t, onWorkClick }) {
                 <p className="row-body muted">{lang === 'ja' ? job.descriptionJa : job.descriptionEn}</p>
             </div>)}
         </section>
+        </>}
 
+        {sectionVisible('awards') && <>
         <section className="section" id="awards">
             <div className="section-header"><h2>{t.awardsTitle}</h2></div>
             {awards.map((award, index) => <div key={index} className="list-row">
@@ -85,7 +107,9 @@ function HomePage({ lang, t, onWorkClick }) {
                 <p className="row-body muted">{lang === 'ja' ? award.descriptionJa : award.descriptionEn}{award.url && <> <a href={award.url} target="_blank" rel="noopener noreferrer">{lang === 'ja' ? (award.sourceJa || '出典') : (award.sourceEn || 'Source')}</a></>}</p>
             </div>)}
         </section>
+        </>}
 
+        {sectionVisible('talks') && <>
         <section className="section" id="talks">
             <div className="section-header"><h2>{t.talksTitle}</h2></div>
             {talks.map((talk, index) => <div key={index} className="list-row">
@@ -94,14 +118,18 @@ function HomePage({ lang, t, onWorkClick }) {
                 <p className="row-body muted">{lang === 'ja' ? talk.descriptionJa : talk.descriptionEn}{talk.url && <> <a href={talk.url} target="_blank" rel="noopener noreferrer">{lang === 'ja' ? (talk.sourceJa || '出典') : (talk.sourceEn || 'Source')}</a></>}</p>
             </div>)}
         </section>
+        </>}
 
+        {sectionVisible('works') && <>
         <section className="section" id="works">
             <div className="section-header"><h2>{label('主な作品', 'Selected Works')}</h2><Link className="section-link" to="/works">{t.worksTitle}</Link></div>
             {featured.map(work => <div key={work.id} className="list-row work-row text-work-row" onClick={() => onWorkClick(work)} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter') onWorkClick(work) }}>
                 <div className="work-row-body"><h3 className="row-title">{work.title}</h3><p className="row-body muted">{lang === 'ja' ? work.descJa : work.descEn}</p><TagList tags={work.tags} /></div>
             </div>)}
         </section>
+        </>}
 
+        {sectionVisible('media') && <>
         <section className="section" id="media">
             <div className="section-header"><h2>{t.mediaTitle}</h2><Link className="section-link" to="/media">{label('掲載をすべて見る', 'See all coverage')}</Link></div>
             {mediaItems.slice(0, 3).map(item => <div key={item.id} className="list-row">
@@ -110,13 +138,16 @@ function HomePage({ lang, t, onWorkClick }) {
                 <p className="row-body muted">{lang === 'ja' ? item.summaryJa : item.summaryEn}</p>
             </div>)}
         </section>
+        </>}
 
+        {sectionVisible('blog') && <>
         <section className="section" id="blog">
             <div className="section-header"><h2>{t.blogTitle}</h2><Link className="section-link" to="/blog">{label('すべて見る', 'See all')}</Link></div>
             {recentPosts.length ? recentPosts.map(post => <Link key={post.slug} to={`/blog/${post.slug}`} className="list-row">
                 <div className="row-meta">{new Date(post.date).toLocaleDateString()}</div><h3 className="row-title">{post.title}</h3>
             </Link>) : <div className="list-row"><p className="muted">{t.blogComing}</p></div>}
         </section>
+        </>}
     </div>
 }
 
