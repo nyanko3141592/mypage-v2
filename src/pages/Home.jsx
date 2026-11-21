@@ -46,10 +46,10 @@ function HomePage({ lang, t, onWorkClick }) {
         </header>
 
         <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
-            <p><strong>{label('肩書き', 'Work')}：</strong>{t.profDesc}</p>
-            <p><strong>{label('受賞', 'Awards')}：</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p>
-            <p><strong>{label('今', 'Now')}：</strong>{t.interestsDesc}</p>
-            <p><strong>{label('リンク', 'Links')}：</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p>
+            <div className="profile-fact"><p><strong>{label('肩書き', 'Work')}</strong>{t.profDesc}</p></div>
+            <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p></div>
+            <div className="profile-fact"><p><strong>{label('今', 'Now')}</strong>{t.interestsDesc}</p></div>
+            <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
             <div className="social-row">
                 {socialLinks.map(item => {
                     const socialKey = item.name.toLowerCase().replace(/[^a-z]/g, '').replace('xtwitter', 'twitter').replace('misskeyio', 'misskey')
@@ -58,7 +58,16 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>
         </section>
 
-        <section className="section">
+        <nav className="section-nav" aria-label={label('ページ内リンク', 'On this page')}>
+            <a href="#experience">{label('経歴', 'Experience')}</a>
+            <a href="#awards">{t.awardsTitle}</a>
+            <a href="#talks">{t.talksTitle}</a>
+            <a href="#works">{label('主な作品', 'Selected Works')}</a>
+            <a href="#media">{t.mediaTitle}</a>
+            <a href="#blog">{t.blogTitle}</a>
+        </nav>
+
+        <section className="section" id="experience">
             <div className="section-header"><h2>{label('経歴', 'Experience')}</h2></div>
             {workExperience.map((job, index) => <div key={index} className="list-row">
                 <div className="row-meta">{lang === 'ja' ? job.periodJa : job.periodEn}</div>
@@ -68,7 +77,7 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>)}
         </section>
 
-        <section className="section">
+        <section className="section" id="awards">
             <div className="section-header"><h2>{t.awardsTitle}</h2></div>
             {awards.map((award, index) => <div key={index} className="list-row">
                 <div className="row-meta">{lang === 'ja' ? award.dateJa : award.dateEn}</div>
@@ -77,7 +86,7 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>)}
         </section>
 
-        <section className="section">
+        <section className="section" id="talks">
             <div className="section-header"><h2>{t.talksTitle}</h2></div>
             {talks.map((talk, index) => <div key={index} className="list-row">
                 <div className="row-meta">{lang === 'ja' ? talk.dateJa : talk.dateEn} · {lang === 'ja' ? talk.kindJa : talk.kindEn}</div>
@@ -86,14 +95,14 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>)}
         </section>
 
-        <section className="section">
+        <section className="section" id="works">
             <div className="section-header"><h2>{label('主な作品', 'Selected Works')}</h2><Link className="section-link" to="/works">{t.worksTitle}</Link></div>
             {featured.map(work => <div key={work.id} className="list-row work-row text-work-row" onClick={() => onWorkClick(work)} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter') onWorkClick(work) }}>
                 <div className="work-row-body"><h3 className="row-title">{work.title}</h3><p className="row-body muted">{lang === 'ja' ? work.descJa : work.descEn}</p><TagList tags={work.tags} /></div>
             </div>)}
         </section>
 
-        <section className="section">
+        <section className="section" id="media">
             <div className="section-header"><h2>{t.mediaTitle}</h2><Link className="section-link" to="/media">{label('掲載をすべて見る', 'See all coverage')}</Link></div>
             {mediaItems.slice(0, 3).map(item => <div key={item.id} className="list-row">
                 <div className="row-meta">{item.outlet} · {item.date.slice(0, 7).replace('-', '.')}</div>
@@ -102,7 +111,7 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>)}
         </section>
 
-        <section className="section">
+        <section className="section" id="blog">
             <div className="section-header"><h2>{t.blogTitle}</h2><Link className="section-link" to="/blog">{label('すべて見る', 'See all')}</Link></div>
             {recentPosts.length ? recentPosts.map(post => <Link key={post.slug} to={`/blog/${post.slug}`} className="list-row">
                 <div className="row-meta">{new Date(post.date).toLocaleDateString()}</div><h3 className="row-title">{post.title}</h3>

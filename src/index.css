@@ -324,8 +324,10 @@ header {
 .profile-identity { min-width: 0; }
 .profile-bio { grid-column: 1 / -1; margin-top: var(--space-3); font-size: var(--fs-md); }
 .profile-facts { padding: 0 var(--space-4) var(--space-3); }
-.profile-facts > p { margin: 0 0 var(--space-2); font-size: var(--fs-md); overflow-wrap: anywhere; }
+.profile-facts > p,
+.profile-fact > p { margin: 0 0 var(--space-2); font-size: var(--fs-md); overflow-wrap: anywhere; }
 .profile-facts strong { font-weight: 700; }
+.profile-fact strong::after { content: '：'; }
 
 .profile-name {
   font-size: var(--fs-xl);
@@ -958,6 +960,76 @@ header {
     max-width: none;
   }
 
+}
+
+@media (min-width: 989px) {
+  :root { --column: 720px; }
+
+  .list-row { padding: 20px 24px; }
+
+  .profile-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 0 24px 16px;
+  }
+
+  .profile-fact {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .profile-fact:nth-child(odd) { border-right: 1px solid var(--divider); }
+  .profile-fact > p { margin: 0; }
+  .profile-fact strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-secondary);
+    font-size: var(--fs-xs);
+    font-weight: 600;
+  }
+  .profile-fact strong::after { content: ''; }
+
+  .profile-facts .social-row {
+    grid-column: 1 / -1;
+    margin: 12px 0 0;
+  }
+
+  .section-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding: 14px 24px;
+    border-top: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+
+  .section-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    align-items: center;
+    min-height: 64px;
+    padding: 16px 24px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .section-header h2,
+  .section-title {
+    font-size: 24px;
+    font-weight: 800;
+  }
+
+  .section { margin-top: 24px; scroll-margin-top: 64px; }
+  #works .row-title { font-size: 17px; font-weight: 700; }
+  #works .row-body { font-size: 15px; }
+}
+
+@media (max-width: 988px) {
+  .profile-fact { display: contents; }
+  .section-nav { display: none; }
 }
 
 @media (max-width: 600px) {
