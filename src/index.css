@@ -1448,3 +1448,14 @@ header {
     margin-left: 0;
   }
 }
+
+/* Wide sidebar labels: must come after the icon-only overrides above */
+@media (min-width: 989px) and (max-width: 1279px) {
+  .site-sidebar { width: 88px; }
+}
+
+@media (min-width: 1280px) {
+  .sidebar-links { align-items: stretch; }
+  .sidebar-link { width: auto; height: auto; min-height: 50px; justify-content: flex-start; gap: 18px; padding: 10px 16px; border-radius: 999px; font-size: 19px; }
+  .sidebar-link.is-active { font-weight: 700; }
+}
