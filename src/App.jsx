@@ -15,12 +15,20 @@ import { translations } from './data/translations'
 function App() {
   const [lang, setLang] = useState('ja')
   const [selectedWork, setSelectedWork] = useState(null)
+  const [theme, setTheme] = useState(() => document.documentElement.dataset.theme || 'light')
   const t = translations[lang]
+
+  const toggleTheme = () => setTheme(current => {
+    const next = current === 'dark' ? 'light' : 'dark'
+    document.documentElement.dataset.theme = next
+    localStorage.setItem('theme', next)
+    return next
+  })
 
   return (
     <Router>
       <div className="app-shell">
-        <Nav lang={lang} setLang={setLang} />
+        <Nav lang={lang} setLang={setLang} theme={theme} onToggleTheme={toggleTheme} />
         <div className="timeline">
           <Routes>
             <Route path="/" element={<HomePage lang={lang} t={t} onWorkClick={setSelectedWork} />} />

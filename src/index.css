@@ -7,6 +7,11 @@
   --accent: #1d9bf0;
   --accent-hover: #1a8cd8;
   --banner: #cfd9de;
+  --button-text: #ffffff;
+  --button-hover: #272c30;
+  --overlay: rgba(15, 20, 25, 0.4);
+  --code-bg: #f7f9f9;
+  --translucent-bg: rgba(255, 255, 255, 0.85);
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --column: 598px;
   --sidebar: 260px;
@@ -28,6 +33,21 @@
   --fs-3xl: 31px;
   --lh: 1.5;
   --radius-sm: 4px;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #000000;
+  --text: #e7e9ea;
+  --text-secondary: #71767b;
+  --divider: #2f3336;
+  --hover: rgba(231, 233, 234, 0.03);
+  --banner: #333639;
+  --button-text: #000000;
+  --button-hover: #d7dbdc;
+  --overlay: rgba(91, 112, 131, 0.4);
+  --code-bg: #16181c;
+  --translucent-bg: rgba(0, 0, 0, 0.85);
 }
 
 * {
@@ -219,7 +239,7 @@ header {
   justify-content: center;
   gap: var(--space-2);
   background: var(--text);
-  color: #fff;
+  color: var(--button-text);
   border: 0;
   box-shadow: none;
   border-radius: 999px;
@@ -234,11 +254,11 @@ header {
 }
 
 .brutal-btn:hover {
-  background: #272c30;
+  background: var(--button-hover);
   transform: none;
   box-shadow: none;
   text-decoration: none;
-  color: #fff;
+  color: var(--button-text);
 }
 
 .brutal-btn:active {
@@ -281,13 +301,13 @@ header {
 
 .chip.is-active {
   background: var(--text);
-  color: #fff;
+  color: var(--button-text);
   border-color: var(--text);
 }
 
 .chip.is-active:hover {
-  background: #272c30;
-  color: #fff;
+  background: var(--button-hover);
+  color: var(--button-text);
 }
 
 .brutal-tag {
@@ -304,12 +324,29 @@ header {
 }
 
 .profile-header {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  column-gap: var(--space-3);
-  align-items: center;
-  padding: var(--space-4);
+  display: block;
+  padding: 0 var(--space-4) var(--space-4);
 }
+
+.profile-banner { height: 200px; margin: 0 calc(-1 * var(--space-4)); background: var(--banner); }
+.profile-topline { display: flex; align-items: flex-start; justify-content: space-between; min-height: 82px; }
+.profile-topline .profile-img { width: 134px; height: 134px; margin-top: -67px; border: 4px solid var(--bg); }
+.profile-topline .profile-actions { display: flex; flex-direction: row-reverse; align-items: center; gap: 8px; margin: 12px 0 0; }
+.profile-primary-action { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: var(--text); color: var(--bg); font-size: var(--fs-sm); font-weight: 700; white-space: nowrap; }
+.profile-primary-action:hover { background: var(--text-secondary); color: var(--bg); text-decoration: none; }
+.profile-meta, .profile-counts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; margin-top: var(--space-3); color: var(--text-secondary); font-size: var(--fs-sm); }
+.profile-meta span, .profile-meta a { display: inline-flex; align-items: center; gap: 5px; color: var(--text-secondary); }
+.profile-meta svg { width: 16px; height: 16px; flex-shrink: 0; }
+.profile-counts { gap: 4px 14px; }
+.profile-counts strong { color: var(--text); }
+.profile-tabs { display: flex; position: sticky; top: 0; z-index: 5; overflow-x: auto; background: var(--translucent-bg); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); scrollbar-width: none; }
+.profile-tabs::-webkit-scrollbar { display: none; }
+.profile-tab { position: relative; flex: 1 0 auto; min-width: 72px; padding: 16px 12px; border: 0; background: transparent; color: var(--text-secondary); font-size: var(--fs-sm); font-weight: 500; cursor: pointer; white-space: nowrap; }
+.profile-tab:hover { background: var(--hover); }
+.profile-tab.is-active { color: var(--text); font-weight: 700; }
+.profile-tab.is-active::after { content: ''; position: absolute; left: 20%; right: 20%; bottom: 0; height: 4px; border-radius: 999px; background: var(--accent); }
+.site-sidebar, .section-header, .page-header { background: var(--translucent-bg); backdrop-filter: blur(12px); }
+.theme-toggle { margin-top: auto; }
 
 .profile-img {
   grid-row: span 2;
@@ -593,7 +630,7 @@ header {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 20, 25, 0.4);
+  background: var(--overlay);
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -603,7 +640,8 @@ header {
 }
 
 .modal-content {
-  background: var(--bg);
+  background: var(--translucent-bg);
+  backdrop-filter: blur(12px);
   max-width: 600px;
   width: 100%;
   overflow: visible;
@@ -833,7 +871,7 @@ header {
 }
 
 .markdown-content pre {
-  background: #f7f9f9;
+  background: var(--code-bg);
   padding: var(--space-4);
   border: 1px solid var(--divider);
   overflow-x: auto;
@@ -842,7 +880,7 @@ header {
 
 .markdown-content code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  background: #f7f9f9;
+  background: var(--code-bg);
   padding: 0.15rem 0.35rem;
   font-size: 0.9em;
 }
@@ -954,6 +992,7 @@ header {
     padding: 0;
     flex-shrink: 0;
   }
+  .theme-toggle { margin: 0; width: 36px; height: 36px; }
 
   .timeline {
     border: 0;
@@ -1039,6 +1078,15 @@ header {
   .section-link { white-space: normal; text-align: right; }
   .row-meta { gap: 6px; line-height: 1.65; }
   .profile-header { padding: 12px; }
+  .profile-banner { height: 100px; margin: 0 -12px; }
+  .profile-topline { min-height: 58px; }
+  .profile-topline .profile-img { width: 88px; height: 88px; margin-top: -44px; }
+  .profile-topline .profile-actions { gap: 2px; margin-top: 8px; }
+  .profile-primary-action { min-height: 36px; padding: 0 12px; font-size: 12px; }
+  .profile-topline .social-row { gap: 0; margin: 0; max-width: 132px; overflow-x: auto; overflow-y: hidden; flex-wrap: nowrap; scrollbar-width: none; }
+  .profile-topline .social-row::-webkit-scrollbar { display: none; }
+  .profile-topline .social-icon-btn { width: 32px; min-width: 32px; height: 32px; min-height: 32px; }
+  .profile-meta { gap: 4px 12px; }
   .profile-facts { padding: 0 12px 12px; }
   .works-item .work-thumb { display: none; }
   .works-item .tag-list, .text-work-row .tag-list { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
