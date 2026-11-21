@@ -42,14 +42,14 @@ function AnalyticsHome({ lang, t }) {
             <div className="brutal-card" style={{ background: color, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <h2 style={{ fontSize: '4rem', marginBottom: '0', lineHeight: '1' }}>{year}</h2>
 
-                <div style={{ background: 'white', padding: '1rem', border: '3px solid black' }}>
-                    <div style={{ fontSize: '0.9rem', color: '#666', fontFamily: 'var(--font-mono)' }}>{t.totalImp}</div>
+                <div style={{ background: 'white', padding: '1rem', border: 'var(--border-width) solid var(--text-color)' }}>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--text-color)', fontFamily: 'var(--font-mono)' }}>{t.totalImp}</div>
                     <div style={{ fontSize: '2.5rem', fontWeight: '800' }}>{formatter.format(yearStats.totalImp)}</div>
                 </div>
 
                 {yearStats.topTweet && (
-                    <div style={{ background: 'white', padding: '1rem', border: '3px solid black', flex: 1 }}>
-                        <div style={{ fontSize: '0.9rem', color: '#666', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{t.mostViral} 🚀 {formatter.format(yearStats.topTweet.impCount)}</div>
+                    <div style={{ background: 'white', padding: '1rem', border: 'var(--border-width) solid var(--text-color)', flex: 1 }}>
+                        <div style={{ fontSize: '0.9rem', color: 'var(--text-color)', fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>{t.mostViral} 🚀 {formatter.format(yearStats.topTweet.impCount)}</div>
                         <div className="tweet-text" style={{ fontSize: '0.9rem', maxHeight: '100px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {yearStats.topTweet['Post text']}
                         </div>
@@ -59,7 +59,7 @@ function AnalyticsHome({ lang, t }) {
                 <button
                     className="brutal-btn"
                     onClick={() => navigate(`/x/${year}`)}
-                    style={{ width: '100%', textAlign: 'center', background: 'black', color: 'white', marginTop: 'auto' }}
+                    style={{ width: '100%', textAlign: 'center', background: 'var(--text-color)', color: 'white', marginTop: 'auto' }}
                 >
                     {t.exploreYear}
                 </button>

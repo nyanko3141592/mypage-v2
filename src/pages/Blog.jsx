@@ -28,7 +28,7 @@ function BlogPage({ t }) {
                     {posts.map(post => (
                         <div key={post.slug} className="brutal-card">
                             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-                                <span style={{ fontFamily: 'var(--font-mono)', color: '#666' }}>{new Date(post.date).toLocaleDateString()}</span>
+                                <span style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-color)' }}>{new Date(post.date).toLocaleDateString()}</span>
                                 <div>
                                     {post.tags && post.tags.map(tag => (
                                         <span key={tag} className="brutal-tag" style={{ fontSize: '0.7rem' }}>{tag}</span>

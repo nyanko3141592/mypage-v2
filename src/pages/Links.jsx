@@ -14,19 +14,19 @@ function LinksPage({ t }) {
 
             {linksData.map((category, i) => (
                 <section key={i} style={{ marginBottom: '4rem' }}>
-                    <h2 style={{ fontSize: '2rem', borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '2rem' }}>
+                    <h2 style={{ fontSize: '2rem', borderBottom: 'var(--border-width) solid var(--text-color)', paddingBottom: '0.5rem', marginBottom: '2rem' }}>
                         {category.category}
                     </h2>
                     <div className="grid">
                         {category.items.map((item, j) => (
                             <div key={j} className="brutal-card" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-                                <div style={{ padding: '1rem', borderBottom: '4px solid black', background: 'var(--yellow)', fontWeight: 'bold' }}>
+                                <div style={{ padding: '1rem', borderBottom: 'var(--border-width) solid var(--text-color)', background: 'var(--yellow)', fontWeight: 'bold' }}>
                                     {item.name}
                                 </div>
-                                <div style={{ padding: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f4f4f4' }}>
+                                <div style={{ padding: '1rem', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-color)' }}>
                                     <LinkPreview url={item.url} />
                                 </div>
-                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ textAlign: 'center', border: 'none', borderTop: '4px solid black', width: '100%' }}>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ textAlign: 'center', border: 'none', borderTop: 'var(--border-width) solid var(--text-color)', width: '100%' }}>
                                     Visit →
                                 </a>
                             </div>

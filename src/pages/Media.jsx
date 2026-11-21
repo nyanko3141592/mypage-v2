@@ -34,7 +34,7 @@ function MediaPage({ lang, t }) {
                         key={kind}
                         className="brutal-btn"
                         onClick={() => setFilter(kind)}
-                        style={{ background: filter === kind ? 'var(--yellow)' : 'white', color: 'black', padding: '0.5rem 1rem' }}
+                        style={{ background: filter === kind ? 'var(--yellow)' : 'white', color: 'var(--text-color)', padding: '0.5rem 1rem' }}
                     >
                         {kind === 'all' ? t.mediaAll : kindLabel[kind]}
                     </button>
@@ -50,7 +50,7 @@ function MediaPage({ lang, t }) {
                         className="brutal-card media-card"
                     >
                         <div className="media-card-top">
-                            <span className="brutal-tag" style={{ background: 'black', color: 'white' }}>{kindLabel[item.kind]}</span>
+                            <span className="brutal-tag" style={{ background: 'var(--text-color)', color: 'white' }}>{kindLabel[item.kind]}</span>
                             <span className="brutal-tag">{item.outlet}</span>
                             <span style={{ marginLeft: 'auto', fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{formatDate(item, lang)}</span>
                         </div>

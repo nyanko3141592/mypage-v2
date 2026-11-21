@@ -11,12 +11,6 @@ import { mediaItems } from '../data/media'
 import { getPosts } from '../utils/posts'
 import ProjectImage from '../components/ProjectImage'
 
-// Random rotation for card hover effect
-const getRandomRotation = () => {
-    const rotation = (Math.random() - 0.5) * 4 // -2deg to 2deg
-    return { '--card-rotate': `${rotation}deg` }
-}
-
 function HomePage({ lang, t, onWorkClick }) {
     // Blog posts state
     const [recentPosts, setRecentPosts] = useState([])
@@ -88,27 +82,27 @@ function HomePage({ lang, t, onWorkClick }) {
                 </div>
             </header>
             <main className="container">
-                <div className="brutal-card" style={{ background: '#2ecc71', color: 'black' }}>
+                <div className="brutal-card" style={{ background: 'var(--primary-color)', color: 'white' }}>
                     <h2>{t.heroTitle}</h2>
                     <p style={{ fontSize: '1.2rem', marginBottom: '1.5rem' }}>{t.heroBody}</p>
                     <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
                         <Link to="/media" className="brutal-btn">{t.navMedia}</Link>
-                        <Link to="/blog/2025-recap" className="brutal-btn" style={{ background: 'white', color: 'black' }}>2025 Recap</Link>
+                        <Link to="/blog/2025-recap" className="brutal-btn" style={{ background: 'white', color: 'var(--text-color)' }}>2025 Recap</Link>
                     </div>
                 </div>
 
                 <section style={{ margin: '2.5rem 0 0' }}>
                     <h2>{t.nowTitle}</h2>
                     <div className="grid">
-                        <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'var(--secondary-color)', color: 'black', textDecoration: 'none' }}>
+                        <a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'white', color: 'var(--text-color)', textDecoration: 'none' }}>
                             <h3>{t.glassesTitle}</h3>
                             <p>{t.glassesBody}</p>
-                            <span className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.glassesCta}</span>
+                            <span className="brutal-btn" style={{ background: 'white', color: 'var(--text-color)' }}>{t.glassesCta}</span>
                         </a>
-                        <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'var(--yellow)', color: 'black', textDecoration: 'none' }}>
+                        <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer" className="brutal-card" style={{ background: 'var(--yellow)', color: 'var(--text-color)', textDecoration: 'none' }}>
                             <h3>{t.newsletterTitle}</h3>
                             <p>{t.newsletterBody}</p>
-                            <span className="brutal-btn" style={{ background: 'black', color: 'white' }}>{t.newsletterCta}</span>
+                            <span className="brutal-btn" style={{ background: 'var(--text-color)', color: 'white' }}>{t.newsletterCta}</span>
                         </a>
                     </div>
                 </section>
@@ -126,7 +120,7 @@ function HomePage({ lang, t, onWorkClick }) {
                                     rel="noopener noreferrer"
                                     className="brutal-btn social-icon-btn"
                                     data-social={socialKey}
-                                    style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '50px', minHeight: '50px', background: 'white', color: 'black' }}
+                                    style={{ padding: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', minWidth: '50px', minHeight: '50px', background: 'white', color: 'var(--text-color)' }}
                                     title={item.name}
                                 >
                                     {item.iconComponent}
@@ -139,22 +133,22 @@ function HomePage({ lang, t, onWorkClick }) {
                 <section style={{ margin: '4rem 0' }}>
                     <h2>{t.profile}</h2>
                     <div className="grid">
-                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.whoTitle}</h3><p>{t.whoDesc}</p></div>
-                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.profTitle}</h3><p>{t.profDesc}</p></div>
-                        <div className="brutal-card" style={getRandomRotation()}><h3>{t.interestsTitle}</h3><p>{t.interestsDesc}</p></div>
+                        <div className="brutal-card"><h3>{t.whoTitle}</h3><p>{t.whoDesc}</p></div>
+                        <div className="brutal-card"><h3>{t.profTitle}</h3><p>{t.profDesc}</p></div>
+                        <div className="brutal-card"><h3>{t.interestsTitle}</h3><p>{t.interestsDesc}</p></div>
                     </div>
                 </section>
 
                 <section style={{ margin: '4rem 0' }}>
                     <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
                         <div>
-                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.experienceTitle}</h2>
+                            <h2 style={{ borderBottom: 'var(--border-width) solid var(--text-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.experienceTitle}</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                 {workExperience.map((job, i) => (
                                     <div key={i} className="brutal-card" style={{ padding: '1.5rem' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                                             <h3 style={{ margin: 0, fontSize: '1.2rem' }}>{lang === 'ja' ? job.companyJa : job.companyEn}</h3>
-                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', background: 'var(--yellow)', padding: '0.2rem 0.5rem', border: '2px solid black' }}>{lang === 'ja' ? job.periodJa : job.periodEn}</span>
+                                            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', background: 'var(--yellow)', padding: '0.2rem 0.5rem', border: 'var(--border-width-thin) solid var(--text-color)' }}>{lang === 'ja' ? job.periodJa : job.periodEn}</span>
                                         </div>
                                         <div style={{ fontSize: '1.1rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>{lang === 'ja' ? job.roleJa : job.roleEn}</div>
                                         <p style={{ margin: 0, fontSize: '0.95rem' }}>{lang === 'ja' ? job.descriptionJa : job.descriptionEn}</p>
@@ -168,10 +162,10 @@ function HomePage({ lang, t, onWorkClick }) {
                             </div>
                         </div>
                         <div>
-                            <h2 style={{ borderBottom: '4px solid black', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.awardsTitle}</h2>
+                            <h2 style={{ borderBottom: 'var(--border-width) solid var(--text-color)', paddingBottom: '0.5rem', marginBottom: '1.5rem' }}>{t.awardsTitle}</h2>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                 {awards.map((award, i) => (
-                                    <div key={i} className="brutal-card" style={{ padding: '1.5rem', borderLeft: '8px solid var(--accent-color)' }}>
+                                    <div key={i} className="brutal-card" style={{ padding: '1.5rem', borderLeft: 'var(--border-width) solid var(--yellow)' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                                             <h3 style={{ margin: 0, fontSize: '1.1rem' }}>{lang === 'ja' ? award.titleJa : award.titleEn}</h3>
                                             <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem' }}>{lang === 'ja' ? award.dateJa : award.dateEn}</span>
@@ -196,7 +190,7 @@ function HomePage({ lang, t, onWorkClick }) {
                     </div>
                     <div className="grid">
                         {featured.map((p, i) => (
-                            <div key={i} className="brutal-card" style={getRandomRotation()} onClick={() => onWorkClick(p)}>
+                            <div key={i} className="brutal-card" onClick={() => onWorkClick(p)}>
                                 <div className="project-img-container"><ProjectImage src={p.image} title={p.title} githubUrl={p.githubUrl} /></div>
                                 <div>{p.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}</div>
                                 <h3 style={{ marginTop: '1rem' }}>{p.title}</h3>
@@ -231,12 +225,12 @@ function HomePage({ lang, t, onWorkClick }) {
                     {recentPosts.length > 0 ? (
                         <div className="grid">
                             {recentPosts.map(post => (
-                                <Link key={post.slug} to={`/blog/${post.slug}`} className="brutal-card" style={{ textDecoration: 'none', color: 'black', ...getRandomRotation() }}>
-                                    <span style={{ fontSize: '0.9rem', fontFamily: 'var(--font-mono)', color: '#666' }}>{new Date(post.date).toLocaleDateString()}</span>
+                                <Link key={post.slug} to={`/blog/${post.slug}`} className="brutal-card" style={{ textDecoration: 'none', color: 'var(--text-color)' }}>
+                                    <span style={{ fontSize: '0.9rem', fontFamily: 'var(--font-mono)', color: 'var(--text-color)' }}>{new Date(post.date).toLocaleDateString()}</span>
                                     <h3 style={{ margin: '0.5rem 0', fontSize: '1.2rem' }}>{post.title}</h3>
                                     <div style={{ marginTop: '0.5rem' }}>
                                         {post.tags && post.tags.slice(0, 2).map(tag => (
-                                            <span key={tag} style={{ fontSize: '0.7rem', border: '1px solid black', padding: '0.1rem 0.3rem', marginRight: '0.3rem', borderRadius: '4px' }}>{tag}</span>
+                                            <span key={tag} style={{ fontSize: '0.7rem', border: 'var(--border-width-thin) solid var(--text-color)', padding: '0.1rem 0.3rem', marginRight: '0.3rem', borderRadius: 0 }}>{tag}</span>
                                         ))}
                                     </div>
                                 </Link>
@@ -247,8 +241,8 @@ function HomePage({ lang, t, onWorkClick }) {
                     )}
                     <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                         <Link to="/blog" className="brutal-btn">{t.readBlog}</Link>
-                        <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ background: 'white', color: 'black' }}>{t.visitNote}</a>
-                        <Link to="/x" className="brutal-btn" style={{ background: 'black', color: 'white' }}>/x (Analytics)</Link>
+                        <a href="https://note.com/electrical_cat" target="_blank" rel="noopener noreferrer" className="brutal-btn" style={{ background: 'white', color: 'var(--text-color)' }}>{t.visitNote}</a>
+                        <Link to="/x" className="brutal-btn" style={{ background: 'var(--text-color)', color: 'white' }}>/x (Analytics)</Link>
                     </div>
                 </section>
             </main>
