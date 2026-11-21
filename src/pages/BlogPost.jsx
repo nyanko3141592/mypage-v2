@@ -66,7 +66,7 @@ function BlogPostPage({ t }) {
             return <p>{children}</p>
         },
         img: ({ src, alt }) => (
-            <img src={src} alt={alt} style={{ width: '100%', height: 'auto', border: '4px solid black', margin: '2rem 0' }} />
+            <img src={src} alt={alt} style={{ width: '100%', height: 'auto', border: 'var(--border-width) solid var(--text-color)', margin: '2rem 0' }} />
         )
     }
 
@@ -75,8 +75,8 @@ function BlogPostPage({ t }) {
             <Link to="/blog" className="brutal-btn" style={{ marginBottom: '2rem' }}>← {t.back}</Link>
 
             <article className="brutal-card" style={{ padding: '3rem 2rem' }}>
-                <header style={{ marginBottom: '3rem', borderBottom: '4px solid black', paddingBottom: '2rem' }}>
-                    <div style={{ fontFamily: 'var(--font-mono)', color: '#666', marginBottom: '0.5rem' }}>
+                <header style={{ marginBottom: '3rem', borderBottom: 'var(--border-width) solid var(--text-color)', paddingBottom: '2rem' }}>
+                    <div style={{ fontFamily: 'var(--font-mono)', color: 'var(--text-color)', marginBottom: '0.5rem' }}>
                         {new Date(post.date).toLocaleDateString()}
                     </div>
                     <h1 style={{ fontSize: 'min(3rem, 10vw)', lineHeight: 1.2, marginBottom: '1rem' }}>{post.title}</h1>

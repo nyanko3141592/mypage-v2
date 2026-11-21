@@ -14,7 +14,7 @@ function WorksPage({ lang, t, onWorkClick }) {
             <p style={{ fontSize: '1.2rem', marginBottom: '3rem', fontFamily: 'var(--font-mono)' }}>{t.worksSubtitle}</p>
             <div style={{ marginBottom: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 {categories.map(cat => (
-                    <button key={cat} className="brutal-btn" onClick={() => setFilter(cat)} style={{ background: filter === cat ? 'var(--yellow)' : 'white', color: 'black', padding: '0.5rem 1rem' }}>{cat}</button>
+                    <button key={cat} className="brutal-btn" onClick={() => setFilter(cat)} style={{ background: filter === cat ? 'var(--yellow)' : 'white', color: 'var(--text-color)', padding: '0.5rem 1rem' }}>{cat}</button>
                 ))}
             </div>
             <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
@@ -22,7 +22,7 @@ function WorksPage({ lang, t, onWorkClick }) {
                     <div key={work.id} className="brutal-card" onClick={() => onWorkClick(work)}>
                         <div className="project-img-container"><ProjectImage src={work.image} title={work.title} githubUrl={work.githubUrl} /></div>
                         <div>
-                            <span className="brutal-tag" style={{ background: 'black', color: 'white' }}>{work.category}</span>
+                            <span className="brutal-tag" style={{ background: 'var(--text-color)', color: 'white' }}>{work.category}</span>
                             {work.tags.map(tag => <span key={tag} className="brutal-tag">{tag}</span>)}
                         </div>
                         <h3 style={{ marginTop: '1rem' }}>{work.title}</h3>

@@ -11,6 +11,7 @@ import hhkbImg from '../assets/projects/hhkb.webp'
 import noteTakerImg from '../assets/projects/note-taker.webp'
 import photo2textImg from '../assets/projects/photo2text.webp'
 import menulensImg from '../assets/projects/menulens.webp'
+import hourglassImg from '../assets/projects/hourglass.jpeg'
 
 export const allWorksData = [
     {
@@ -262,7 +263,7 @@ export const allWorksData = [
         tags: ["iOS", "Utility"],
         descJa: "デジタル砂時計アプリ。",
         descEn: "Digital hourglass app for iOS.",
-        image: null,
+        image: hourglassImg,
         twitterId: "1798648437732479397",
         url: "https://apps.apple.com/us/app/digitalhourglass/id6642703958",
         githubUrl: "https://github.com/nyanko3141592/DigitalHourglass"

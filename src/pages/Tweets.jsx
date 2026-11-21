@@ -55,13 +55,13 @@ function TweetsPage({ lang, t }) {
                     type="text"
                     placeholder={t.search}
                     className="brutal-card"
-                    style={{ flex: 1, minWidth: '200px', padding: '1rem', fontSize: '1.2rem', border: '4px solid black' }}
+                    style={{ flex: 1, minWidth: '200px', padding: '1rem', fontSize: '1.2rem', border: 'var(--border-width) solid var(--text-color)' }}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <select
                     className="brutal-card"
-                    style={{ padding: '0 1rem', fontSize: '1rem', border: '4px solid black', minWidth: '150px', background: 'white' }}
+                    style={{ padding: '0 1rem', fontSize: '1rem', border: 'var(--border-width) solid var(--text-color)', minWidth: '150px', background: 'white' }}
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
                 >
@@ -71,7 +71,7 @@ function TweetsPage({ lang, t }) {
                     <option value="Engagements">{t.sortEngagements}</option>
                 </select>
                 <Link to="/x/2025" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2025' ? 'var(--yellow)' : 'white' }}>2025</Link>
-                <Link to="/x/2024" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2024' ? 'var(--primary-color)' : 'white', color: year === '2024' ? 'white' : 'black' }}>2024</Link>
+                <Link to="/x/2024" className="brutal-btn" style={{ textDecoration: 'none', background: year === '2024' ? 'var(--primary-color)' : 'white', color: year === '2024' ? 'white' : 'var(--text-color)' }}>2024</Link>
             </div>
 
             {loading ? (

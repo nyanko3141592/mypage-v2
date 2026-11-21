@@ -5,7 +5,7 @@ const ProjectImage = ({ src, title, githubUrl }) => {
         if (!githubUrl || !githubUrl.startsWith('https://github.com/')) return null;
         const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
         if (!match) return null;
-        return `https://opengraph.githubassets.com/${match[1]}/${match[2]}`;
+        return `https://opengraph.githubassets.com/1/${match[1]}/${match[2]}`;
     };
 
     const ogpImage = !src && getGitHubOGP();
@@ -13,7 +13,7 @@ const ProjectImage = ({ src, title, githubUrl }) => {
     if (!src && !ogpImage) {
         return (
             <div className="project-img brutalist-placeholder">
-                <span>NO IMAGE</span>
+                <span>{title}</span>
             </div>
         )
     }
