@@ -43,11 +43,11 @@ function HomePage({ lang, t, onWorkClick }) {
     ]
     const sectionVisible = id => activeTab === 'all' || activeTab === id
 
-    return <div>
+    return <div className="home-layout">
         <header className="profile-header">
             <div className="profile-banner" aria-hidden="true" />
             <div className="profile-topline">
-                <img src={profileIcon} alt="Profile" className="profile-img" />
+                <div className="profile-avatar"><img src={profileIcon} alt="Profile" /></div>
                 <div className="profile-actions">
                     <div className="social-row">
                         {socialLinks.map(item => {
@@ -76,16 +76,19 @@ function HomePage({ lang, t, onWorkClick }) {
             </div>
         </header>
 
-        <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
-            <div className="profile-fact"><p><strong>{label('仕事', 'Work')}</strong>{t.profDesc}</p></div>
-            <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p></div>
-            <div className="profile-fact"><p><strong>{label('やっていること', 'Now')}</strong>{t.interestsDesc}</p></div>
-            <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
-        </section>
+        <div className="home-topbar"><strong>Naoki Takahashi</strong><span>{allWorksData.length} {label('作品', 'Works')}</span></div>
 
         <nav className="profile-tabs" aria-label={label('プロフィールタブ', 'Profile tabs')}>
             {tabs.map(([id, title]) => <button key={id} type="button" className={'profile-tab' + (activeTab === id ? ' is-active' : '')} aria-pressed={activeTab === id} onClick={() => setActiveTab(id)}>{title}</button>)}
         </nav>
+
+        <main className="home-main">
+        {sectionVisible('all') && <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
+            <div className="profile-fact"><p><strong>{label('仕事', 'Work')}</strong>{t.profDesc}</p></div>
+            <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}{index === 1 ? '' : ''}</span>)}</p></div>
+            <div className="profile-fact"><p><strong>{label('やっていること', 'Now')}</strong>{t.interestsDesc}</p></div>
+            <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
+        </section>}
 
         {sectionVisible('experience') && <>
         <section className="section" id="experience">
@@ -152,6 +155,16 @@ function HomePage({ lang, t, onWorkClick }) {
             </Link>) : <div className="list-row"><p className="muted">{t.blogComing}</p></div>}
         </section>
         </>}
+        </main>
+        <aside className="profile-rail" aria-label={label('プロフィール情報', 'Profile information')}>
+            <section className="profile-facts" aria-label={label('プロフィール', 'Profile')}>
+                <div className="profile-fact"><p><strong>{label('仕事', 'Work')}</strong>{t.profDesc}</p></div>
+                <div className="profile-fact"><p><strong>{label('受賞', 'Awards')}</strong>{awards.slice(0, 3).map((award, index) => <span key={award.titleEn}>{index > 0 ? '、' : ''}{lang === 'ja' ? award.titleJa : award.titleEn}{index === 0 ? ' Distinguished Winner' : ''}</span>)}</p></div>
+                <div className="profile-fact"><p><strong>{label('やっていること', 'Now')}</strong>{t.interestsDesc}</p></div>
+                <div className="profile-fact"><p><strong>{label('リンク', 'Links')}</strong><a href="https://smartglasses.fyi" target="_blank" rel="noopener noreferrer">{t.glassesTitle}</a> · <a href="https://naokitakahashi1.substack.com" target="_blank" rel="noopener noreferrer">{t.newsletterTitle}</a></p></div>
+            </section>
+            <section className="profile-link-card"><h2>{label('リンク', 'Links')}</h2>{['SmartGlasses', 'Substack', 'GitHub', 'X (Twitter)'].map(name => { const item = allLinks.find(link => link.name === name); return item && <a key={name} href={item.url} target="_blank" rel="noopener noreferrer">{name}<span>↗</span></a> })}</section>
+        </aside>
     </div>
 }
 
