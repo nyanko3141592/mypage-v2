@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ProjectImage = ({ src, title, githubUrl }) => {
+    const [portrait, setPortrait] = useState(false)
     const getGitHubOGP = () => {
         if (!githubUrl || !githubUrl.startsWith('https://github.com/')) return null;
         const match = githubUrl.match(/github\.com\/([^\/]+)\/([^\/]+)/);
@@ -18,7 +19,7 @@ const ProjectImage = ({ src, title, githubUrl }) => {
         )
     }
 
-    return <img src={src || ogpImage} alt={title} className="project-img" />
+    return <img src={src || ogpImage} alt={title} className={'project-img' + (portrait ? ' is-portrait' : '')} onLoad={event => setPortrait(event.currentTarget.naturalHeight > event.currentTarget.naturalWidth * 1.1)} />
 }
 
 export default ProjectImage;
