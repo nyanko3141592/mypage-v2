@@ -1,65 +1,44 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { LuEye } from 'react-icons/lu'
+import { LuArrowLeft } from 'react-icons/lu'
 import { fetchTweets } from '../utils/twitter'
-import { BackLink } from '../components/Ui'
+import TweetRow from '../components/TweetRow'
 
-function AnalyticsHome({ lang, t }) {
-    const [stats, setStats] = useState({
-        2025: { loading: true, totalImp: 0, topTweet: null },
-        2024: { loading: true, totalImp: 0, topTweet: null }
-    })
+function AnalyticsHome({ t }) {
+    const [stats, setStats] = useState({})
 
     useEffect(() => {
-        fetchTweets('2025').then(data => {
-            const totalImp = data.reduce((acc, curr) => acc + curr.impCount, 0)
-            const topTweet = data.reduce((max, curr) => curr.impCount > (max?.impCount || 0) ? curr : max, null)
-            setStats(prev => ({ ...prev, 2025: { loading: false, totalImp, topTweet } }))
+        let active = true
+        Promise.all(['2025', '2024'].map(async year => [year, await fetchTweets(year)])).then(entries => {
+            if (!active) return
+            setStats(Object.fromEntries(entries.map(([year, tweets]) => [year, {
+                tweets,
+                totalImp: tweets.reduce((sum, tweet) => sum + (tweet.impCount || 0), 0),
+                totalLikes: tweets.reduce((sum, tweet) => sum + (tweet.likesCount || 0), 0),
+                topTweet: tweets.reduce((top, tweet) => tweet.impCount > (top?.impCount ?? -1) ? tweet : top, null)
+            }])))
         })
-
-        fetchTweets('2024').then(data => {
-            const totalImp = data.reduce((acc, curr) => acc + curr.impCount, 0)
-            const topTweet = data.reduce((max, curr) => curr.impCount > (max?.impCount || 0) ? curr : max, null)
-            setStats(prev => ({ ...prev, 2024: { loading: false, totalImp, topTweet } }))
-        })
+        return () => { active = false }
     }, [])
 
-    const renderYearCard = (year) => {
-        const yearStats = stats[year]
-        if (yearStats.loading) {
-            return (
-                <div className="list-row year-block">
-                    <p className="muted">Loading…</p>
-                </div>
-            )
-        }
-
-        const formatter = Intl.NumberFormat('en', { notation: "compact" })
-
-        return (
-            <Link to={`/x/${year}`} className="list-row year-block">
-                <h2>{year}</h2>
-                <div className="stat-inline">
-                    <LuEye size={16} aria-label={t.totalImp} title={t.totalImp} />
-                    <span className="stat-value">{formatter.format(yearStats.totalImp)}</span>
-                </div>
-                {yearStats.topTweet && (
-                    <p className="tweet-text muted">{yearStats.topTweet['Post text']}</p>
-                )}
-            </Link>
-        )
-    }
-
-    return (
-        <div className="container">
-            <div className="page-header">
-                <BackLink to="/" label={t.back} />
-                <h1>{t.analyticsTitle}</h1>
-            </div>
-            {renderYearCard(2025)}
-            {renderYearCard(2024)}
-        </div>
-    )
+    return <div className="container x-page">
+        <header className="x-sticky-header"><Link to="/" className="x-back" aria-label={t.back}><LuArrowLeft size={20} /></Link><div><h1>{t.analyticsTitle === 'Twitter Analytics' ? 'アナリティクス' : t.analyticsTitle}</h1><p>@nya3_neko2</p></div></header>
+        {['2025', '2024'].map(year => {
+            const data = stats[year]
+            return <section className="x-year-section" key={year}>
+                <Link to={`/x/${year}`} className="x-year-heading"><h2>{year}</h2><span>{t.sortDate || 'ポストを見る'} →</span></Link>
+                {!data ? <p className="x-loading muted">Loading…</p> : <>
+                    <div className="x-summary">
+                        <div className="x-summary-primary"><strong>{new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(data.totalImp)}</strong><span>総インプレッション</span></div>
+                        <div><strong>{new Intl.NumberFormat('en').format(data.tweets.length)}</strong><span>ポスト</span></div>
+                        <div><strong>{new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(data.totalLikes)}</strong><span>総いいね数</span></div>
+                    </div>
+                    <h3 className="x-top-label">トップポスト</h3>
+                    {data.topTweet && <TweetRow tweet={data.topTweet} t={t} />}
+                </>}
+            </section>
+        })}
+    </div>
 }
 
 export default AnalyticsHome
