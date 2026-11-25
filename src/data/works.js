@@ -76,6 +76,9 @@ import freezerAlarmImg from '../assets/projects/freezer-alarm.webp'
 import marbleMazeImg from '../assets/projects/marble-maze.webp'
 import azooeditorImg from '../assets/projects/azooeditor.webp'
 import detomaneImg from '../assets/projects/detomane.webp'
+import treeCandidateWindowImg from '../assets/projects/tree-candidate-window.jpg'
+import shukatsuPocketImg from '../assets/projects/shukatsu-pocket.jpg'
+import aistylistImg from '../assets/projects/aistylist.jpg'
 
 export const allWorksData = [
     {
@@ -125,7 +128,7 @@ export const allWorksData = [
         tags: ["IME", "UI", "Zenzai"],
         descJa: "縦のリストのままだった日本語入力の変換候補ウィンドウを、木構造で作り直した試み。文章が確率的に選ばれる様子や、Zenzaiによる補正が見える。",
         descEn: "An attempt to rebuild the Japanese input candidate window, long a vertical list, as a tree. You can see how sentences are chosen by probability and where Zenzai corrects them.",
-        image: null,
+        image: treeCandidateWindowImg,
         twitterId: "2111968066674335912"
     },
     {
@@ -1075,7 +1078,7 @@ export const allWorksData = [
         tags: ["iOS", "Job Hunting"],
         descJa: "就職活動のスケジュールやメモを管理するアプリ。",
         descEn: "App for managing job hunting schedules and notes.",
-        image: null,
+        image: shukatsuPocketImg,
         twitterId: null,
         url: "https://apps.apple.com/us/app/%E5%B0%B1%E6%B4%BB%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88/id6599845519"
     },
@@ -1086,7 +1089,7 @@ export const allWorksData = [
         tags: ["AI", "Media"],
         descJa: "ニュースも日常も、私らしい視点で。",
         descEn: "News and daily life from a personal perspective.",
-        image: null,
+        image: aistylistImg,
         twitterId: null,
         url: "https://play.google.com/store/apps/details?id=com.shunsukeshoji.aistyllist_android&hl=ja"
     },
