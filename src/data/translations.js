@@ -64,7 +64,17 @@ export const translations = {
         noData: "データがありません",
         blogPageTitle: "ブログ",
         blogPageSubtitle: "思考のダンプと技術メモ",
-        readMore: "続きを読む"
+        readMore: "続きを読む",
+        revTitle: "収益",
+        revTotal: "合計支払額",
+        revNextPayout: "次回支払い",
+        revBelowMin: "最低支払額未満",
+        revActive: "受付中",
+        revRetired: "終了",
+        revIneligible: "対象外",
+        revPayouts: "支払い履歴",
+        revData: "データ（CSV）",
+        revSource: "Xのクリエイタースタジオから2026年11月25日に取得"
     },
     en: {
         back: "Back",
@@ -131,6 +141,16 @@ export const translations = {
         noData: "No Data",
         blogPageTitle: "Blog",
         blogPageSubtitle: "Thought dumps and tech notes",
-        readMore: "Read More"
+        readMore: "Read More",
+        revTitle: "Revenue",
+        revTotal: "Total payouts",
+        revNextPayout: "Next payout",
+        revBelowMin: "Below minimum earnings",
+        revActive: "Active",
+        revRetired: "Retired",
+        revIneligible: "Ineligible",
+        revPayouts: "Payouts",
+        revData: "Data (CSV)",
+        revSource: "Retrieved from X Creator Studio on Nov 25, 2026"
     }
 }
