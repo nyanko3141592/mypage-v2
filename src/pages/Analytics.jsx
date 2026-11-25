@@ -9,7 +9,7 @@ function AnalyticsHome({ t }) {
 
     useEffect(() => {
         let active = true
-        Promise.all(['2025', '2024'].map(async year => [year, await fetchTweets(year)])).then(entries => {
+        Promise.all(['2026', '2025', '2024'].map(async year => [year, await fetchTweets(year)])).then(entries => {
             if (!active) return
             setStats(Object.fromEntries(entries.map(([year, tweets]) => [year, {
                 tweets,
@@ -23,7 +23,7 @@ function AnalyticsHome({ t }) {
 
     return <div className="container x-page">
         <header className="x-sticky-header"><Link to="/" className="x-back" aria-label={t.back}><LuArrowLeft size={20} /></Link><div><h1>{t.analyticsTitle === 'Twitter Analytics' ? 'アナリティクス' : t.analyticsTitle}</h1><p>@nya3_neko2</p></div></header>
-        {['2025', '2024'].map(year => {
+        {['2026', '2025', '2024'].map(year => {
             const data = stats[year]
             return <section className="x-year-section" key={year}>
                 <Link to={`/x/${year}`} className="x-year-heading"><h2>{year}</h2><span>{t.sortDate || 'ポストを見る'} →</span></Link>

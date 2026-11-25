@@ -37,7 +37,7 @@ function TweetsPage({ t }) {
     return <div className="container x-page">
         <header className="x-sticky-header"><Link to="/x" className="x-back" aria-label={t.back}><LuArrowLeft size={20} /></Link><div><h1>ポスト</h1><p>{loading ? '…' : `${new Intl.NumberFormat('ja-JP').format(tweets.length)} 件のポスト`}</p></div></header>
         <nav className="x-year-tabs" aria-label="年">
-            {['2025', '2024'].map(item => <Link key={item} to={`/x/${item}`} className={'x-year-tab' + (year === item ? ' is-active' : '')}>{item}</Link>)}
+            {['2026', '2025', '2024'].map(item => <Link key={item} to={`/x/${item}`} className={'x-year-tab' + (year === item ? ' is-active' : '')}>{item}</Link>)}
         </nav>
         <div className="x-controls">
             <label className="x-search"><LuSearch size={18} /><input type="search" placeholder={t.search} value={searchTerm} onChange={event => setSearchTerm(event.target.value)} aria-label={t.search} /></label>
