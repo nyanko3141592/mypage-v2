@@ -1528,3 +1528,29 @@ header {
 .media-card-text { flex: 1; min-width: 0; }
 .media-thumb { width: 84px; height: 84px; border-radius: 16px; object-fit: cover; flex: none; border: 1px solid var(--divider); }
 @media (max-width: 988px) { .media-thumb { width: 64px; height: 64px; } }
+
+/* X revenue section */
+.x-rev-section { padding: 20px 16px 24px; }
+.x-rev-heading { margin: 0 0 18px; font-size: 20px; font-weight: 800; }
+.x-rev-total { display: flex; flex-direction: column; gap: 2px; padding: 4px 0 22px; }
+.x-rev-total strong { font-size: 34px; font-weight: 800; letter-spacing: -0.04em; }
+.x-rev-total span, .x-rev-next, .x-rev-payout-detail span, .x-rev-source { color: var(--text-secondary); }
+.x-rev-total span { font-size: var(--fs-sm); }
+.x-rev-program { padding: 18px 0; border-top: 1px solid var(--divider); }
+.x-rev-program-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.x-rev-program-heading h3 { margin: 0; font-size: 17px; font-weight: 700; }
+.x-rev-status { padding: 3px 9px; border: 1px solid var(--divider); border-radius: 16px; color: var(--text-secondary); font-size: 12px; }
+.x-rev-program-total { margin: 9px 0 0; font-size: 20px; font-weight: 800; }
+.x-rev-next { margin: 5px 0 0; font-size: var(--fs-sm); }
+.x-rev-payouts-heading { margin: 18px 0 4px; font-size: var(--fs-sm); font-weight: 700; }
+.x-rev-payouts { margin: 0; padding: 0; list-style: none; }
+.x-rev-payout { display: flex; align-items: center; gap: 12px; min-height: 58px; padding: 9px 0; border-bottom: 1px solid var(--divider); }
+.x-rev-payout-icon { flex: none; color: #00ba7c; }
+.x-rev-payout-icon-muted { color: var(--text-secondary); }
+.x-rev-payout-detail { display: flex; flex-direction: column; gap: 2px; }
+.x-rev-payout-detail strong { font-size: 15px; font-weight: 700; }
+.x-rev-payout-detail span { font-size: 13px; }
+.x-rev-data { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 18px 0; border-top: 1px solid var(--divider); }
+.x-rev-data h3 { margin: 0 0 2px; font-size: 16px; }
+.x-rev-data a { overflow-wrap: anywhere; }
+.x-rev-source { margin: 4px 0 0; font-size: 12px; }
