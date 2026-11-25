@@ -22,8 +22,8 @@ function HomePage({ lang, t, onWorkClick }) {
         getPosts().then(posts => setRecentPosts(posts.slice(0, 3)))
     }, [])
 
-    const featuredIds = ['inspiration-cat', 'azookey-macos', 'paperswipe', 'zenzai', 'smartglasses', 'coefont-interpreter']
-    const featured = allWorksData.filter(work => featuredIds.includes(work.id))
+    const featuredIds = ['azookey-macos', 'shadowhand', 'smartglasses', 'receiptport', 'paperswipe', 'inspiration-cat']
+    const featured = featuredIds.map(id => allWorksData.find(work => work.id === id)).filter(Boolean)
     const targetSocials = ['X (Twitter)', 'GitHub', 'LinkedIn', 'Wantedly', 'Note', 'Substack', 'SmartGlasses', 'Qiita', 'Zenn', 'YouTube', 'Misskey.io', 'Mastodon', 'Reddit']
     const iconMap = {
         'X (Twitter)': <FaTwitter size={18} />, GitHub: <FaGithub size={18} />, LinkedIn: <FaLinkedin size={18} />,

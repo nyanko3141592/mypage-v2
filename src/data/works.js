@@ -1,4 +1,5 @@
 import zenzaiImg from '../assets/projects/zenzai.png'
+import smartglassesImg from '../assets/projects/smartglasses-fyi.jpg'
 import paperswipeImg from '../assets/projects/paperswipe.webp'
 import azookeyImg from '../assets/projects/azookeyOnMacOS.png'
 import coefontImg from '../assets/projects/coefont.avif'
@@ -832,7 +833,7 @@ export const allWorksData = [
         tags: ["Smart Glasses", "Editorial"],
         descJa: "スマートグラスのレビュー、ニュース、比較を載せる媒体。運営は Naoki（@nya3_neko2）。",
         descEn: "Reviews, news, and comparisons of smart glasses. Operated by Naoki (@nya3_neko2).",
-        image: null,
+        image: smartglassesImg,
         twitterId: null,
         url: "https://smartglasses.fyi/"
     },
